@@ -12,6 +12,7 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @livewireStyles
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
@@ -29,7 +30,7 @@
                 {{ $slot }}
             </main>
         </div>
-
+        @livewireScripts
         <script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js"></script>
     </body>
 </html>
