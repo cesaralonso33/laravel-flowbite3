@@ -6,9 +6,8 @@ module.exports = {
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
-        "./node_modules/flowbite/**/*.js",
         './vendor/usernotnull/tall-toasts/config/**/*.php',
-        './vendor/usernotnull/tall-toasts/resources/views/**/*.blade.php'
+        './vendor/usernotnull/tall-toasts/resources/views/**/*.blade.php',
     ],
 
     theme: {
@@ -19,5 +18,5 @@ module.exports = {
         },
     },
 
-    plugins: [require('@tailwindcss/forms'),require('flowbite/plugin')],
+    plugins: [require('@tailwindcss/forms')],
 };
