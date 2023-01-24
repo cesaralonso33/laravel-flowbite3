@@ -12,10 +12,14 @@
         "laravel/tinker": "^2.7",
         "laraveles/spanish": "^1.5",
         "livewire/livewire": "^2.11",
+        "owen-it/laravel-auditing": "^13.0",
         "pestphp/pest": "^1.16",
-        "pestphp/pest-plugin-laravel": "^1.1"
+        "pestphp/pest-plugin-laravel": "^1.1",
+        "rappasoft/laravel-livewire-tables": "^2.10",
+        "usernotnull/tall-toasts": "^1.5"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.7",
         "fakerphp/faker": "^1.9.1",
         "laravel/breeze": "^1.18",
         "laravel/pint": "^1.0",

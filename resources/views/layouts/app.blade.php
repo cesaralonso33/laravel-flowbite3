@@ -15,6 +15,7 @@
         @livewireStyles
     </head>
     <body class="font-sans antialiased">
+        <livewire:toasts />
         <div class="min-h-screen bg-gray-100">
             @include('layouts.navigation')
 
@@ -32,5 +33,6 @@
         </div>
         @livewireScripts
         <script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js"></script>
+
     </body>
 </html>
