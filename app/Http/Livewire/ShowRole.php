@@ -2,18 +2,21 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Role;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
-use Rappasoft\LaravelLivewireTables\Views\Column;
-use App\Models\User;
 
-class UserTable extends DataTableComponent
+use Rappasoft\LaravelLivewireTables\Views\Column;
+use Livewire\Component;
+
+class ShowRole extends DataTableComponent
 {
-    protected $model = User::class;
+    protected $model = Role ::class;
 
     public function configure(): void
     {
         $this->setPrimaryKey('id');
     }
+
 
     public function columns(): array
     {
@@ -22,13 +25,12 @@ class UserTable extends DataTableComponent
                 ->sortable(),
             Column::make("Name", "name")
                 ->sortable(),
-            Column::make("Email", "email")
-                ->sortable(),
-            Column::make("Created at", "created_at")
-                ->sortable(),
-            Column::make("Updated at", "updated_at")
+            Column::make("Modulo", "guard_name")
                 ->sortable(),
         ];
     }
+
 }
+
+
 
