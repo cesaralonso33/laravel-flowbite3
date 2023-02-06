@@ -15,7 +15,13 @@ return new class extends Migration
     {
         Schema::create('columns', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('label');
+            $table->boolean('required')->default(false);
+            $table->boolean('list')->default(false);
+            $table->unsignedBigInteger("user_id");
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

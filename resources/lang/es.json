@@ -21,8 +21,18 @@
     "Help": "Ayuda",
     "Tools":"Herramientas",
     "Setting":"Configuración",
+    "Label":"Etiqueta",
     "Profile":"Perfil",
     "Permissions":"Permisos",
+    "Log in":"Entrar",
+    "Remember me":"Recuérdame",
+    "Edit":"Editar",
+    "Active":"Activo",
+    "Deactive":"Inactivo",
+    "Status":"Estatus",
+    "Update":"Actualizar",
+    "Forgot your password?":"¿Olvidaste tu contraseña?",
+    "Update Password":"Actualiza contraseña",
     "If you’re having trouble clicking the \":actionText\" button, copy and paste the URL below\ninto your web browser: [:actionURL](:actionURL)": "Si tienes problemas haciendo click en el botón \":actionText\", copia y pega el siguiente\nenlace en tu navegador: [:actionURL](:actionURL)",
     "If you’re having trouble clicking the \":actionText\" button, copy and paste the URL below\ninto your web browser: [:displayableActionUrl](:actionURL)": "Si tienes problemas haciendo click en el botón \":actionText\", copia y pega el siguiente\nenlace en tu navegador: [:displayableActionUrl](:actionURL)",
     "If you’re having trouble clicking the \":actionText\" button, copy and paste the URL below\ninto your web browser:": "Si tienes problemas haciendo click en el botón \":actionText\", copia y pega el siguiente\nenlace en tu navegador:",
@@ -43,5 +53,16 @@
     "Delete Account":"Borrar cuenta",
     "Save":"Guardar",
     "New Password":"Nueva contraseña",
-    "Current Password":"Contraseña Actual"
+    "Current Password":"Contraseña Actual",
+    "Providers":"Proveedores",
+    "Clients":"Clientes",
+    "Products":"Productos",
+    "New User":"Nuevo Usuario",
+    "The operation has been successfully completed":"La operación se ha completado con éxito.",
+    "Success":"Éxito",
+    "The operation has been not completed":"La operación no se ha completado.",
+    "New Colummn":"Nueva columna",
+    "Configure Columns":"Configurar Columnas"
+
+
 }

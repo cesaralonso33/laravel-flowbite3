@@ -18,15 +18,21 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
+
+        $this->call(PostSeeder::class);
+
         $this->call(RoleSeeder::class);
 
            \App\Models\User::factory()->create([
              'name' => 'Admin',
              'email' => 'crad@crad.com',
-         ])->assignRole('Admin');
+             'isAdmin'=>'Admin'
+         ])->assignRole('Super-Admin');
 
       //  \App\Models\User::factory(10)->create();
-
+      \App\Models\User::factory(3)->create()->each(function($user){
+        $user->assignRole('Admin');
+     });
          \App\Models\User::factory(3)->create()->each(function($user){
             $user->assignRole('User');
          });

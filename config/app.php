@@ -185,6 +185,8 @@ return [
         OwenIt\Auditing\AuditingServiceProvider::class,
 
         Laraveles\Spanish\SpanishServiceProvider::class,
+
+        Maatwebsite\Excel\ExcelServiceProvider::class,
         /*
          * Package Service Providers...
          */

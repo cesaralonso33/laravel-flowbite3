@@ -1,25 +1,66 @@
 @php
 
     $linkmenu=  array(
-                    array("title"=>"Dashboard", "route"=>"dashboard",'icon'=>1),
-                    array("title"=>"Users", "route"=>"users.index",'icon'=>5)
+                    array("title"=>"Dashboard", "route"=>"dashboard",'icon'=>1)
                 );
 
+if(auth()->user()->hasAnyPermission('view users')){
+    array_push($linkmenu, array("title"=>"Users", "route"=>"users.index",'icon'=>5));
+}
 
+if(auth()->user()->hasAnyPermission('view client')){
+    array_push($linkmenu, array("title"=>"Clients", "route"=>"users.index",'icon'=>8));
+}
+
+if(auth()->user()->hasAnyPermission('view provider')){
+    array_push($linkmenu, array("title"=>"Providers", "route"=>"users.index",'icon'=>7));
+}
+
+if(auth()->user()->hasAnyPermission('view product')){
+    array_push($linkmenu, array("title"=>"Products", "route"=>"users.index",'icon'=>9));
+}
+
+if(auth()->user()->hasAnyPermission('view post')){
+    array_push($linkmenu, array("title"=>"Posts", "route"=>"posts.index",'icon'=>10));
+}
     $defaultlist=  array(
-
-                    array("title"=>"Setting", "route"=>"setting.index",'icon'=>6),
-                    array("title"=>"Permissions", "route"=>"permissions.index",'icon'=>2),
-                    array("title"=>"Roles", "route"=>"roles.index",'icon'=>3),
-                    array("title"=>"Profile", "route"=>"profile.edit",'icon'=>4)
+                  //  array("title"=>"Setting", "route"=>"setting.index",'icon'=>6),
+                  //  array("title"=>"Permissions", "route"=>"permissions.index",'icon'=>2),
+                   // array("title"=>"Roles", "route"=>"roles.index",'icon'=>3),
+                //    array("title"=>"Profile", "route"=>"profile.edit",'icon'=>4)
                 );
+
+
+if(Auth::user()->getRoleNames()[0]==="Super-Admin"){
+    array_push($defaultlist, array("title"=>"Setting", "route"=>"setting.index",'icon'=>6));
+}
+
+if(auth()->user()->hasAnyPermission('view permissions')){
+    array_push($defaultlist,  array("title"=>"Permissions", "route"=>"permissions.index",'icon'=>2));
+}
+
+if(auth()->user()->hasAnyPermission('view roles')){
+    array_push($defaultlist,  array("title"=>"Roles", "route"=>"roles.index",'icon'=>3));
+}
+
+
+if(auth()->user()->hasAnyPermission('view profile')){
+    array_push($defaultlist, array("title"=>"Profile", "route"=>"profile.edit",'icon'=>4));
+}
+               // $users = Auth::user()->givePermissionTo('edit articles');
+            //  echo (auth()->user()->getPermissionsViaRoles());
+             // echo( auth()->user()->hasPermissionTo('edit articles'))
+         //    echo( dd(auth()->user()->hasAnyPermission('view profile')))
+
+
+
 @endphp
 
 <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
     <ul class="space-y-2">
         @forelse ( $linkmenu as $key)
         <li>
-            <x-crad-linkbar :href="route($key['route'])" > <x-listsvg :valor="$key['icon']"/> <span class="ml-3">{{  $key['title']  }}</span> </x-crad-linkbar>
+            <x-crad-linkbar :href="route($key['route'])" > <x-listsvg :valor="$key['icon']"/> <span class="ml-3">{{  __($key['title'])  }}</span> </x-crad-linkbar>
         </li>
         @empty
 

@@ -22,13 +22,27 @@
     <x-heroicon-s-credit-card {{ $attributes->merge(['class' => $classes]) }} />
 @endif
 
+@if ($valor===5)
+    <x-heroicon-s-users {{ $attributes->merge(['class' => $classes]) }} />
+@endif
 
 @if ($valor===6)
     <x-heroicon-s-cog-6-tooth {{ $attributes->merge(['class' => $classes]) }} />
 @endif
 
-
-@if ($valor===5)
-    <x-heroicon-s-users {{ $attributes->merge(['class' => $classes]) }} />
+@if ($valor===7)
+    <x-heroicon-s-inbox-arrow-down {{ $attributes->merge(['class' => $classes]) }} />
 @endif
+@if ($valor===8)
+    <x-heroicon-s-scale {{ $attributes->merge(['class' => $classes]) }} />
+@endif
+@if ($valor===9)
+    <x-heroicon-s-archive-box {{ $attributes->merge(['class' => $classes]) }} />
+@endif
+
+
+@if ($valor===10)
+    <x-heroicon-s-table-cells {{ $attributes->merge(['class' => $classes]) }} />
+@endif
+
 
