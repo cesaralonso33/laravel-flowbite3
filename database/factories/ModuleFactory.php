@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\module;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -11,6 +12,9 @@ use Illuminate\Support\Str;
  */
 class ModuleFactory extends Factory
 {
+
+    protected $model = module::class;
+
     /**
      * Define the model's default state.
      *
@@ -18,13 +22,20 @@ class ModuleFactory extends Factory
      */
     public function definition()
     {
-        $description = ['Active','Desactive'];
+        /* $description = ['Active','Desactive'];
         $name = Str::of($description)->snake();
 
         return [
             'name' => fake()->name(),
-            'user_id' => User::all()->random()->id,
-            'status' => $name,
+            'user_id' => User::all()->random()->id
+        ] */;
+
+        return [
+
+            'name' => '',//$this->faker->title,
+            'user_id' => 1,
+
         ];
+
     }
 }

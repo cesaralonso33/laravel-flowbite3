@@ -6,6 +6,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingcradController;
 use App\Http\Controllers\UserController;
+use App\Models\module;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 
 use Usernotnull\Toast\Concerns\WireToast;
@@ -32,6 +34,11 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     /* $tt= view('dashboard')->render();
     return $tt; */
+
+    $collection = collect( module::select('name')->whereStatus('Active')->get()->toarray());
+    Cache::put('CacheModule',$collection );
+
+
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 

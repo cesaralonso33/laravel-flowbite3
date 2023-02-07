@@ -1,26 +1,30 @@
 @php
+use Illuminate\Support\Facades\Cache;
+$valueCache = Cache::get('CacheModule');
+$collection = collect($valueCache);
 
-    $linkmenu=  array(
+
+ $linkmenu=  array(
                     array("title"=>"Dashboard", "route"=>"dashboard",'icon'=>1)
                 );
 
-if(auth()->user()->hasAnyPermission('view users')){
+if(auth()->user()->hasAnyPermission('view Users') and $collection->contains('name', 'Users') ){
     array_push($linkmenu, array("title"=>"Users", "route"=>"users.index",'icon'=>5));
 }
 
-if(auth()->user()->hasAnyPermission('view client')){
+if(auth()->user()->hasAnyPermission('view Clients') and $collection->contains('name', 'Clients') ){
     array_push($linkmenu, array("title"=>"Clients", "route"=>"users.index",'icon'=>8));
 }
 
-if(auth()->user()->hasAnyPermission('view provider')){
+if(auth()->user()->hasAnyPermission('view Providers') and $collection->contains('name', 'Providers') ){
     array_push($linkmenu, array("title"=>"Providers", "route"=>"users.index",'icon'=>7));
 }
 
-if(auth()->user()->hasAnyPermission('view product')){
+if(auth()->user()->hasAnyPermission('view Products') and $collection->contains('name', 'Products') ){
     array_push($linkmenu, array("title"=>"Products", "route"=>"users.index",'icon'=>9));
 }
 
-if(auth()->user()->hasAnyPermission('view post')){
+if(auth()->user()->hasAnyPermission('view Posts')  and $collection->contains('name', 'Posts')  ){
     array_push($linkmenu, array("title"=>"Posts", "route"=>"posts.index",'icon'=>10));
 }
     $defaultlist=  array(
@@ -31,20 +35,20 @@ if(auth()->user()->hasAnyPermission('view post')){
                 );
 
 
-if(Auth::user()->getRoleNames()[0]==="Super-Admin"){
+if(Auth::user()->getRoleNames()[0]==="Super-Admin"   ){
     array_push($defaultlist, array("title"=>"Setting", "route"=>"setting.index",'icon'=>6));
 }
 
-if(auth()->user()->hasAnyPermission('view permissions')){
+if(auth()->user()->hasAnyPermission('view Permissions') and $collection->contains('name', 'Permissions') ){
     array_push($defaultlist,  array("title"=>"Permissions", "route"=>"permissions.index",'icon'=>2));
 }
 
-if(auth()->user()->hasAnyPermission('view roles')){
+if(auth()->user()->hasAnyPermission('view Roles') and $collection->contains('name', 'Roles') ){
     array_push($defaultlist,  array("title"=>"Roles", "route"=>"roles.index",'icon'=>3));
 }
 
 
-if(auth()->user()->hasAnyPermission('view profile')){
+if(auth()->user()->hasAnyPermission('view Profile') and $collection->contains('name', 'Profile') ){
     array_push($defaultlist, array("title"=>"Profile", "route"=>"profile.edit",'icon'=>4));
 }
                // $users = Auth::user()->givePermissionTo('edit articles');
@@ -53,8 +57,9 @@ if(auth()->user()->hasAnyPermission('view profile')){
          //    echo( dd(auth()->user()->hasAnyPermission('view profile')))
 
 
-
 @endphp
+
+
 
 <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
     <ul class="space-y-2">

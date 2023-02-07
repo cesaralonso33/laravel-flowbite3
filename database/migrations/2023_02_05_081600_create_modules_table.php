@@ -18,10 +18,10 @@ return new class extends Migration
 
             $table->string("name");
             $table->string("campolibre")->nullable();
-            $table->unsignedBigInteger("user_id");
-            $table->enum("status",['Active','Desactive']);
+            $table->integer("user_id");
+            $table->enum("status",['Active','Desactive'])->default('Active');
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users');
+            //$table->foreign('user_id')->references('id')->on('users');
 
         });
     }

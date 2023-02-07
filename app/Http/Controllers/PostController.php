@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Traits\RefreshesPermissionCache;
+use Illuminate\Support\Str;
 
 
 class PostController extends Controller
@@ -23,7 +24,7 @@ class PostController extends Controller
      */
     public function index()
     {
-     //   dump($this->get_enum_values("users","isAdmin"));
+        //   dump($this->get_enum_values("users","isAdmin"));
         return view('post.index');
     }
 
@@ -44,97 +45,60 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function crearcolumna($name,$label,$req,$type){
-        try{
-            if(!(colummcrad::where('name',$name)->where('user_id',Auth::id())->first())){
-
-                $rowq=new colummcrad();
-                $rowq->name=$name;
-                $rowq->label=$label;
-                $rowq->required=$req;
-                $rowq->list=($type=="LIST"? true:false);
-                $rowq->user_id=Auth::id();
-                $rowq->save();
-
-                return true;
-
-            }else{return false;}
-        } catch (\Exception $e) {
-            return false;
-         }
-    }
-
-        public function crearoles($name,$creat=true){
-            try{
-                    if(!$creat){
-                        Permission::whereIn('name',['view '.$name,'edit '.$name,'delete '.$name])->destroy();
-                    }
-                    //::create(['name' =>  $request->name,'user_id' => Auth::id()]);
-                    Permission::create(['name' => 'view '.$name]);
-                    Permission::create(['name' => 'edit '.$name]);
-                    Permission::create(['name' => 'delete '.$name]);
-
-                return true;
-            } catch (\Exception $e) {
-                return false;
-            }
-        }
-
-        public function  AddColummnPost($name,$type,$label,$req,$list){
-            try{
-
-                $opcval=($req ? 'NOT NULL':'NULL');
-                if($type==="LIST" AND !empty($list))
-                    {
-                        DB::SELECT("ALTER TABLE posts ADD {$name} enum({$list}) {$opcval};");
-
-                    }else{
-                        DB::SELECT("ALTER TABLE posts ADD {$name} {$type} {$opcval};");
-                    }
-
-                    if($this->crearcolumna($name,$label,$req,$type)){ //agrega el nombre de la columna en la tabla **columnns**
-                        return $this->crearoles($name);
-                    }else{
-                        DB::SELECT("ALTER TABLE posts DROP COLUMN {$name};");
-                    return false;
-                    }
-
-                return true;
-            } catch (\Exception $e) {
-                return false;
-            }
-        }
-
 
     public function store(Request $request)
     {
 
-       $request->required = ($request->required=="on"?true:false);
-
-       try{
 
 
-        if($this->AddColummnPost($request->name,$request->type,$request->label,$request->required,$request->list)){
-            notify()->success(__('The operation has been successfully completed') .' ⚡️',__('Success'));
+        DB::beginTransaction();
+
+        try {
+
+            $this->CreateColumnPost($request);
+
+
+            notify()->success(__('The operation has been successfully completed') . ' ⚡️', __('Success'));
             return back();
-
-        }else{
-
-            notify()->error(__('The operation has been not completed') .' function FALSE',__('Error') );
+        } catch (\Exception $e) {
+            // DB::rollback();
+            notify()->error(__('The operation has been not completed') . $e->getMessage(), __('Error'));
             return back();
+        }
+    }
 
+
+
+
+    public function CreateColumnPost(Request $request)
+    {
+        $request->required  = ($request->required == "on" ? true : false);
+        $request->name      = str::upper($request->name);
+        $request->list      = str::upper($request->list);
+
+        if ($request->type === "LIST" and !empty($request->list)) {
+            DB::SELECT("ALTER TABLE posts ADD {$request->name} enum({$request->list}) {$request->opcval};");
+        } else {
+            DB::SELECT("ALTER TABLE posts ADD {$request->name} {$request->type} {$request->opcval};");
         }
 
+        //    DB::SELECT("ALTER TABLE posts DROP COLUMN {$request->name};");
+
+        $rowq = new colummcrad();
+        $rowq->name     = $request->name;
+        $rowq->label    = $request->label;
+        $rowq->required = $request->required;
+        $rowq->list     = ($request->type == "LIST" ? true : false);
+        $rowq->user_id  = Auth::id();
+        $rowq->save();
 
 
-            } catch (\Exception $e) {
-
-                notify()->error(__('The operation has been not completed') .$e->getMessage(),__('Error') );
-                return back();
-            }
-
-
+        Permission::create(['name' => 'view ' . $request->name]);
+        Permission::create(['name' => 'edit ' . $request->name]);
+        Permission::create(['name' => 'delete ' . $request->name]);
     }
+
+
 
     /**
      * Display the specified resource.
@@ -156,9 +120,9 @@ class PostController extends Controller
     public function edit(post $post)
     {
 
-       $items= colummcrad::where('user_id',Auth::id())->get();
+        $items = colummcrad::where('user_id', Auth::id())->get();
 
-        return view('post.edit',compact('items','post'));
+        return view('post.edit', compact('items', 'post'));
     }
 
     /**
@@ -170,18 +134,16 @@ class PostController extends Controller
      */
     public function update(Request $request, post $post)
     {
-        try{
+        try {
 
-                $post->update($request->except(['_token','_method']));
-                notify()->success(__('The operation has been successfully completed') .' ⚡️',__('Success'));
-                return redirect('/posts');
-
+            $post->update($request->except(['_token', '_method']));
+            notify()->success(__('The operation has been successfully completed') . ' ⚡️', __('Success'));
+            return redirect('/posts');
         } catch (\Exception $e) {
 
-            notify()->error(__('The operation has been not completed') .$e->getMessage(),__('Error') );
+            notify()->error(__('The operation has been not completed') . $e->getMessage(), __('Error'));
             return back();
         }
-
     }
 
     /**
@@ -194,7 +156,4 @@ class PostController extends Controller
     {
         //
     }
-
-
-
 }

@@ -18,32 +18,18 @@ class ModuleSeeder extends Seeder
        // \App\Models\module::factory(3)->create();
 
 
-
-        module::create([
-            "name"=>"Clientes",
-            "user_id"=>"1",
-            "status"=>"Active"
-            ]);
-
-     module::create([
-         "name"=>"Proveedores",
-         "user_id"=>"1",
-         "status"=>"Active"
-         ]);
+       $listmodules=array("Profile","Users","Permissions","Roles","Clients","Providers","Products","Posts");
 
 
-     module::create([
-        "name"=>"Category",
-        "user_id"=>"1",
-        "status"=>"Active"
-        ]);
+       foreach($listmodules as $item){
+                    module::create([
+                        "name"=>$item,
+                        "user_id"=>1,
+                        "status"=>"Active"
+                        ]);
+       }
 
 
-        module::create([
-            "name"=>"Posts",
-            "user_id"=>"1",
-            "status"=>"Active"
-            ]);
 
 
     }

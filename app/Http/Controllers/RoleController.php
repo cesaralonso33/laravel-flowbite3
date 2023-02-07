@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Role;
 use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
+use App\Models\module;
 use App\Models\Permission;
+use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role as permissrole;
+use Illuminate\Support\Str;
 
 class RoleController extends Controller
 {
@@ -18,46 +22,10 @@ class RoleController extends Controller
      */
 
 
-    public function mappermiss(){
-
-
-        $roles=Role::all();
-
-        $collection = collect($roles);
-
-        $consult= DB::SELECT("SELECT role_has_permissions.*,permissions.* FROM roles inner join role_has_permissions on role_has_permissions.role_id = roles.id inner join permissions on permissions.id=role_has_permissions.permission_id");
-
-        $multiplied = $collection->map(function ($item, $key) {
-            $ret= DB::SELECT("SELECT  permissions.id,permissions.name FROM roles inner join role_has_permissions on role_has_permissions.role_id = roles.id inner join permissions on permissions.id=role_has_permissions.permission_id where role_id=".$item->id);
-
-            $ert=[
-               "id_rol"=>$item->id,
-               "nombre_rol"=>$item->name,
-               "Permission"=>$ret
-           ];
-            return $ert;//$item->name;
-        });
-
-        return $multiplied->all();
-
-
-      //  return DB::SELECT("SELECT role_has_permissions.*,roles.* FROM roles  left join role_has_permissions on role_has_permissions.role_id = roles.id");
-
-      return DB::SELECT("SELECT permissions.id,permissions.name FROM roles inner join role_has_permissions on role_has_permissions.role_id = roles.id inner join permissions on permissions.id=role_has_permissions.permission_id ORDER BY `role_has_permissions`.`permission_id` ASC");
-
-
-    }
 
     public function index()
     {
-    //    dd($this->mappermiss());
-        /*
-        $all_roles_except_a_and_b = permissrole::whereNotIn('name', ['Admin'])->get();
-        return $all_roles_except_a_and_b;
- */
 
-        //$itemstable=$this->mappermiss();
-       // dd($itemstable);
         return view('role.index');
     }
 
@@ -103,7 +71,33 @@ class RoleController extends Controller
     {
 
 
-        return view('role.edit',compact('role'));
+        $rolePermissions = Permission::select('id', 'name')
+            ->join("role_has_permissions", "role_has_permissions.permission_id", "=", "permissions.id")
+            ->where("role_has_permissions.role_id", $role->id)
+            ->get();
+
+        $collectiond = collect($rolePermissions);
+        $collection = collect(module::where('status', 'Active')->get());
+
+        $multiplied = $collection->map(function ($item, $key) use ($collectiond) {
+
+            $valor[0] = $collectiond->firstWhere('name', 'view ' . $item->name);
+            $valor[1] = $collectiond->firstWhere('name', 'edit ' . $item->name);
+            $valor[2] = $collectiond->firstWhere('name', 'delete ' . $item->name);
+
+            return   [
+                "id" => $item->id,
+                "name" => $item->name,
+                "data" => [
+                    "view" => ($valor[0] == null ? false : true),
+                    "edit" => ($valor[1] == null ? false : true),
+                    "delete" => ($valor[2] == null ? false : true),
+                ]
+            ];
+        });
+
+
+        return view('role.edit', compact('role', 'multiplied'));
     }
 
     /**
@@ -113,9 +107,28 @@ class RoleController extends Controller
      * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRoleRequest $request, Role $role)
+    public function update(Request $request, Role $role)
     {
-        //
+
+        try {
+
+
+            $rol = permissrole::findByName($role->name);
+            $iteml = [];;
+            foreach ($request->except(['_token', '_method']) as $item) {
+
+                $iteml[] = $item;
+            }
+            $rol->syncPermissions($iteml);
+
+
+            notify()->success(__('The operation has been successfully completed') . ' ⚡️', __('Success'));
+            return back();
+        } catch (\Exception $e) {
+            // DB::rollback();
+            notify()->error(__('The operation has been not completed') . $e->getMessage(), __('Error'));
+            return back();
+        }
     }
 
     /**
