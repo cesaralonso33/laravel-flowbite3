@@ -22,6 +22,16 @@ class RoleController extends Controller
      */
 
 
+     public function __construct()
+     {
+         // Evita que los usuarios sin permiso accedan por la url
+         // permisos y el array son los metodos que quieren que se ejecuten con los permisos
+         $this->middleware(['permission:view Roles'], ['only' => 'index']);
+         $this->middleware(['permission:create Roles'], ['only' => ['create', 'store']]);
+         $this->middleware(['permission:edit Roles'], ['only' => ['edit', 'update']]);
+         $this->middleware(['permission:delete Roles'], ['only' => 'delete']);
+     }
+
 
     public function index()
     {

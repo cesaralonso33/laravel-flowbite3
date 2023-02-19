@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Column;
-use App\Http\Requests\StoreColumnRequest;
-use App\Http\Requests\UpdateColumnRequest;
+use App\Models\ConmfigColummn;
+use Illuminate\Http\Request;
 
-class ColumnController extends Controller
+class confcolumController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,8 @@ class ColumnController extends Controller
      */
     public function index()
     {
-        //
+        $colums=Column::all();
+        return view('post.configcolumn.index',compact('colums'));
     }
 
     /**
@@ -31,10 +32,10 @@ class ColumnController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreColumnRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreColumnRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -42,10 +43,10 @@ class ColumnController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Column  $column
+     * @param  \App\Models\ConmfigColummn  $conmfigColummn
      * @return \Illuminate\Http\Response
      */
-    public function show(Column $column)
+    public function show(ConmfigColummn $conmfigColummn)
     {
         //
     }
@@ -53,10 +54,10 @@ class ColumnController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Column  $column
+     * @param  \App\Models\ConmfigColummn  $conmfigColummn
      * @return \Illuminate\Http\Response
      */
-    public function edit(Column $column)
+    public function edit(ConmfigColummn $conmfigColummn)
     {
         //
     }
@@ -64,11 +65,11 @@ class ColumnController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateColumnRequest  $request
-     * @param  \App\Models\Column  $column
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\ConmfigColummn  $conmfigColummn
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateColumnRequest $request, Column $column)
+    public function update(Request $request, ConmfigColummn $conmfigColummn)
     {
         //
     }
@@ -76,10 +77,10 @@ class ColumnController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Column  $column
+     * @param  \App\Models\ConmfigColummn  $conmfigColummn
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Column $column)
+    public function destroy(ConmfigColummn $conmfigColummn)
     {
         //
     }

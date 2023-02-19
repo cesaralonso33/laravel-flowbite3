@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('label');
             $table->boolean('required')->default(false);
             $table->boolean('list')->default(false);
+            $table->string('nametag')->nullable();
+            $table->string('type');
             $table->unsignedBigInteger("user_id");
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');

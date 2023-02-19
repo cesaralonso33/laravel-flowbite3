@@ -9,17 +9,21 @@ use App\Exports\UsersExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Rappasoft\LaravelLivewireTables\Views\Columns\BooleanColumn;
 use Rappasoft\LaravelLivewireTables\Views\Columns\LinkColumn;
 use Rappasoft\LaravelLivewireTables\Views\Columns\ButtonGroupColumn;
+use Rappasoft\LaravelLivewireTables\Views\Columns\ComponentColumn;
 use Rappasoft\LaravelLivewireTables\Views\Columns\ImageColumn;
 use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
 use Rappasoft\LaravelLivewireTables\Views\Filters\MultiSelectFilter;
 use Rappasoft\LaravelLivewireTables\Views\Filters\DateFilter;
+use Illuminate\Support\Str;
 
 class UserTable extends DataTableComponent
 {
-    //protected $model = User::class;
+    protected $model = User::class;
 
 
 
@@ -138,7 +142,6 @@ class UserTable extends DataTableComponent
             ->sortable()
             ->setSortingPillTitle('Id')
             ->setSortingPillDirections('0-9', '9-0')
-
             ->html(),
                 BooleanColumn::make('active')
                 ->sortable()
@@ -151,6 +154,27 @@ class UserTable extends DataTableComponent
                 ->sortable()
                 ->collapseOnMobile()
                 ->searchable(),
+
+
+           /*  ComponentColumn::make("Email", "role")
+                ->component('email')
+                ->attributes(fn ($value, $row, Column $column) => [
+                    'type' => Str::endsWith($value, 'example.org') ? 'success' : 'danger',
+                    'dismissible' => true,
+                ]),
+ */
+
+ Column::make('role')
+    ->format(function($value, $row, Column $column){
+            return $row->roles[0]->name;
+        }),
+
+
+              /*   Column::make("Rol", "namerole")
+                ->sortable()
+                ->collapseOnMobile()
+                ->searchable(),
+ */
 
                 /* ->secondaryHeader(function() {
                     return "ww";//view('tables.cells.input-search', ['field' => 'email', 'columnSearch' => $this->columnSearch]);
@@ -207,12 +231,6 @@ class UserTable extends DataTableComponent
         ];
     }
 
-    public function builder(): Builder
-    {
-        return User::query()
-            ->when($this->columnSearch['name'] ?? null, fn ($query, $name) => $query->where('users.name', 'like', '%' . $name . '%'))
-            ->when($this->columnSearch['email'] ?? null, fn ($query, $email) => $query->where('users.email', 'like', '%' . $email . '%'));
-    }
 
 
 }

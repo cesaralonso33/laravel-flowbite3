@@ -14,7 +14,7 @@
 
            </div>
            <div class="flex items-center justify-center h-14 rounded ">
-              <p class="text-2xl text-gray-400 dark:text-gray-500">+</p>
+             {{--  <p class="text-2xl text-gray-400 dark:text-gray-500">+</p> --}}
            </div>
         </div>
         <div class="flex items-center justify-center h-auto mb-4 rounded bg-gray-50 dark:bg-gray-800">

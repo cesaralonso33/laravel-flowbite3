@@ -17,6 +17,20 @@ use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
+
+
+
+    public function __construct()
+    {
+        // Evita que los usuarios sin permiso accedan por la url
+        // permisos y el array son los metodos que quieren que se ejecuten con los permisos
+        $this->middleware(['permission:view Posts'], ['only' => 'index']);
+        $this->middleware(['permission:create Posts'], ['only' => ['create', 'store']]);
+        $this->middleware(['permission:edit Posts'], ['only' => ['edit', 'update']]);
+        $this->middleware(['permission:delete Posts'], ['only' => 'delete']);
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -24,8 +38,12 @@ class PostController extends Controller
      */
     public function index()
     {
+        $arrayt = ['TEXT', 'INT', 'DECIMAL', 'LIST','JSON','IMAGE','LONGTEXT'];
         //   dump($this->get_enum_values("users","isAdmin"));
+        $view = view('post.index',compact('arrayt'));
+        return $view->render(); // Hello, World!
         return view('post.index');
+
     }
 
     /**
@@ -73,9 +91,9 @@ class PostController extends Controller
     public function CreateColumnPost(Request $request)
     {
         $request->required  = ($request->required == "on" ? true : false);
-        $request->name      = str::upper($request->name);
-        $request->list      = str::upper($request->list);
-
+        $request->name      = Str::replace(" ","", str::upper($request->name));
+        $request->list           = str::upper($request->list);
+        $request->type         = ($request->required == "on" ? true : false);
         if ($request->type === "LIST" and !empty($request->list)) {
             DB::SELECT("ALTER TABLE posts ADD {$request->name} enum({$request->list}) {$request->opcval};");
         } else {
@@ -89,6 +107,7 @@ class PostController extends Controller
         $rowq->label    = $request->label;
         $rowq->required = $request->required;
         $rowq->list     = ($request->type == "LIST" ? true : false);
+        $rowq->type    = $request->type;
         $rowq->user_id  = Auth::id();
         $rowq->save();
 
@@ -121,8 +140,9 @@ class PostController extends Controller
     {
 
         $items = colummcrad::where('user_id', Auth::id())->get();
+        $view = view('post.edit', compact('items', 'post'));
+        return $view->render(); // Hello, World!
 
-        return view('post.edit', compact('items', 'post'));
     }
 
     /**

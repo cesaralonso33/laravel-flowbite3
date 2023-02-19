@@ -22,6 +22,7 @@ return new class extends Migration
             $table->boolean('active')->default(true);
             $table->enum('isAdmin', ['Admin', 'User'])->default('User');
             $table->rememberToken();
+            $table->string('role')->nullable();
             $table->timestamps();
         });
     }

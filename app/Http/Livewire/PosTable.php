@@ -41,9 +41,7 @@ class PosTable extends DataTableComponent
     public function exportSelected()
     {
         $users = $this->getSelected();
-
         $this->clearSelected();
-
         return Excel::download(new PostsExport($users), 'Post.xlsx');
     }
 
@@ -62,9 +60,11 @@ class PosTable extends DataTableComponent
 
 
        $arrayt=[];
+
        $arrayt[]=Column::make("id")->sortable();
+
        foreach($COLER as $key =>$value){
-           $arrayt[]=Column::make($value->label,$value->name)->sortable()->searchable();
+           $arrayt[]=$this->columncrad($value->label,$value->name,$value->type);
        }
 
        $arrayt[]=ButtonGroupColumn::make('Actions')
@@ -118,4 +118,15 @@ class PosTable extends DataTableComponent
 
         ];
     }
+
+
+public function columncrad($label,$name,$type){
+
+    if($type==="INT"){
+        return BooleanColumn::make($label,$name)->sortable()->searchable();
+    }else{
+        return Column::make($label,$name)->sortable()->searchable();
+    }
+}
+
 }

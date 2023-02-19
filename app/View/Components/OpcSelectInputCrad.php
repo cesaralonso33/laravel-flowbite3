@@ -9,7 +9,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Logical\Boolean;
 class OpcSelectInputCrad extends Component
 {
 
-    public string $name,$label,$required;
+    public string $name,$label,$required,$type;
     public bool $list;
     public array $values;
 
@@ -21,13 +21,15 @@ class OpcSelectInputCrad extends Component
      *
      * @return void
      */
-    public function __construct(string $name,string $label,string $required,bool $list,string $values)
+    public function __construct(string $name,string $label,string $required,bool $list,string $values,string $type)
     {
         $this->name = $name;
         $this->label = $label;
         $this->required = $required;
         $this->list = $list;
         $this->values = json_decode($values,True);
+        $this->type = $type;
+
     }
 
     function get_enum_values( $table, $field )

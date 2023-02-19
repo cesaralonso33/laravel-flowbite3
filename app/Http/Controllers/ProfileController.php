@@ -11,6 +11,18 @@ use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
+
+
+    public function __construct()
+    {
+        // Evita que los usuarios sin permiso accedan por la url
+        // permisos y el array son los metodos que quieren que se ejecuten con los permisos
+        $this->middleware(['permission:view Profile'], ['only' => 'index']);
+        $this->middleware(['permission:create Profile'], ['only' => ['create', 'store']]);
+        $this->middleware(['permission:edit Profile'], ['only' => ['edit', 'update']]);
+        $this->middleware(['permission:delete Profile'], ['only' => 'delete']);
+    }
+
     /**
      * Display the user's profile form.
      */

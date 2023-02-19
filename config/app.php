@@ -187,6 +187,9 @@ return [
         Laraveles\Spanish\SpanishServiceProvider::class,
 
         Maatwebsite\Excel\ExcelServiceProvider::class,
+
+         Intervention\Image\ImageServiceProvider::class,
+
         /*
          * Package Service Providers...
          */

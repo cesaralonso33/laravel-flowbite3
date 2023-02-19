@@ -8,6 +8,19 @@ use App\Http\Requests\UpdateProductRequest;
 
 class ProductController extends Controller
 {
+
+
+    public function __construct()
+    {
+        // Evita que los usuarios sin permiso accedan por la url
+        // permisos y el array son los metodos que quieren que se ejecuten con los permisos
+        $this->middleware(['permission:view Products'], ['only' => 'index']);
+        $this->middleware(['permission:create Products'], ['only' => ['create', 'store']]);
+        $this->middleware(['permission:edit Products'], ['only' => ['edit', 'update']]);
+        $this->middleware(['permission:delete Products'], ['only' => 'delete']);
+    }
+
+
     /**
      * Display a listing of the resource.
      *

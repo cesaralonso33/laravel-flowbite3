@@ -16,6 +16,17 @@ use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
+
+    public function __construct()
+    {
+        // Evita que los usuarios sin permiso accedan por la url
+        // permisos y el array son los metodos que quieren que se ejecuten con los permisos
+        $this->middleware(['permission:view Users'], ['only' => 'index']);
+        $this->middleware(['permission:create User'], ['only' => ['create', 'store']]);
+        $this->middleware(['permission:edit Users'], ['only' => ['edit', 'update']]);
+        $this->middleware(['permission:delete User'], ['only' => 'delete']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +36,7 @@ class UserController extends Controller
     {
         //Toast Message when new user register
 
-        return view('users.index');
+        return view('users.index' );
     }
 
     /**

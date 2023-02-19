@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\confcolumController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
@@ -53,7 +54,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('/permissions', PermissionController::class);
     Route::resource('/users', UserController::class);
     Route::resource('/setting', SettingcradController::class);
+
     Route::resource('/posts', PostController::class);
+    Route::resource('/configc', confcolumController::class);
 
 });
 
