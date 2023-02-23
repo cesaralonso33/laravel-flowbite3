@@ -15,7 +15,7 @@ class PostSeeder extends Seeder
      */
     public function run()
     {
-        for($i=0;$i<1000;$i++){
+        for($i=0;$i<6000;$i++){
             $itt=new post();
             $itt->save();
         }

@@ -21,12 +21,16 @@
         "owen-it/laravel-auditing": "^13.0",
         "pestphp/pest": "^1.16",
         "pestphp/pest-plugin-laravel": "^1.1",
+        "power-components/livewire-powergrid": "^3.7",
         "rappasoft/laravel-livewire-tables": "^2.10",
+        "spatie/flysystem-dropbox": "^2.0",
+        "spatie/laravel-backup": "^8.1",
         "spatie/laravel-permission": "^5.9",
         "usernotnull/tall-toasts": "^1.5"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.7",
+        "composer/composer": "^2.5",
         "fakerphp/faker": "^1.9.1",
         "laravel/breeze": "^1.18",
         "laravel/pint": "^1.0",

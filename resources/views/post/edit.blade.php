@@ -1,20 +1,12 @@
 <x-app-layout>
-    <form action="{{ route('posts.update', $post->id) }}" method="POST">
+
+
+
+    <form action="{{ route('posts.update', $post->id) }}" method="POST" class="relative" enctype="multipart/form-data">
         @csrf
         @method('PUT')
-        <div class="p-4   border-gray-200 rounded-lg dark:border-gray-700">
-            <div class="grid grid-cols-3 gap-4 mb-4">
-                <div class="flex items-center justify-center h-10 rounded ">
-                </div>
-                <div class="flex items-center justify-center h-10 rounded ">
-                </div>
-                <div class="flex items-center justify-center h-10 rounded ">
-                    <p class="text-2xl text-gray-400 dark:text-gray-500">
-                        <x-primary-button type="submit">Guardar</x-primary-button>
-                    </p>
-                </div>
-            </div>
-        </div>
+
+            <div class="absolute top-0 right-0 h-16 w-16 ..."><x-primary-button type="submit">Guardar</x-primary-button></div>
 
         <div class="p-4   border-gray-200   rounded-lg dark:border-gray-700">
             <div class="grid grid-cols-1 gap-4 mb-4">
@@ -51,31 +43,29 @@
                         <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="profile" role="tabpanel"
                             aria-labelledby="profile-tab">
                             <div class="p-4   border-gray-200   rounded-lg dark:border-gray-700">
-                                <div class="grid grid-cols-3 gap-4 mb-4">
-                                    <div class=" items-center justify-center  rounded bg-gray-50 dark:bg-gray-800">
+                                <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                                   Tab 1
+                                </h5>
+<div class="h-9"></div>
+                                <div class="grid grid-cols-2 gap-4 mb-8 w-full">
+                                           @forelse ($items as $item)
 
-                                        @forelse ($items as $item)
+                                                                                <x-OpcSelectInputCrad
+                                                                                        :name="$item->name"
+                                                                                        :label="$item->label"
+                                                                                        :required="$item->required"
+                                                                                        :list="$item->list"
+                                                                                        :values="$post"
+                                                                                        :type="$item->type" />
 
-                                                            <x-OpcSelectInputCrad
-                                                                    :name="$item->name"
-                                                                    :label="$item->label"
-                                                                    :required="$item->required"
-                                                                    :list="$item->list"
-                                                                    :values="$post"
-                                                                    :type="$item->type" />
+                                                            @empty
+                                                            @endforelse
 
-                                        @empty
-                                        @endforelse
 
-                                    </div>
-                                    <div
-                                        class="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-                                        <p class="text-2xl text-gray-400 dark:text-gray-500"></p>
-                                    </div>
-                                    <div
-                                        class="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-                                        <p class="text-2xl text-gray-400 dark:text-gray-500"></p>
-                                    </div>
+                                                            <input id="id" name="id" type="hidden" value="{{$post->id}}">
+
+                                                            <input id="timage" name="timage" type="hidden" value="{{$itemimage}}">
+
                                 </div>
                             </div>
                         </div>
@@ -103,6 +93,9 @@
 
 
     </form>
+
+
+
     <script>
         window.onload = function() {
             try {
@@ -112,4 +105,40 @@
             }
         }
     </script>
+
+@section('scriptss')
+<script>
+    // FilePond.registerPlugin(FilePondPluginImagePreview);
+    // Get a reference to the file input element
+   // const inputElement = document.querySelector('input[type="file"]');
+    const inputElement = document.querySelectorAll('input[type="file"]');
+      // create a FilePond instance at the input element location
+       const pond = FilePond.create(inputElement, {
+        maxFiles: 10,
+        allowMultiple:true,
+     //   allowBrowse: false,
+    });
+
+    // attributes and initial options have been set to pond options
+    console.log(pond.name); // 'filepond'
+    console.log(pond.maxFiles); // 10
+    console.log(pond.required); // true
+    console.log(pond.allowMultiple); // true
+
+
+    FilePond.setOptions({
+    server: {
+        url: '../../pi/dropzone',
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        }
+    }
+})
+
+
+    // Create a FilePond instance
+    //const pond = FilePond.create(inputElement);
+</script>
+@endsection
+
 </x-app-layout>

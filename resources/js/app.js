@@ -2,8 +2,11 @@
 import './bootstrap';
 import '../css/app.css'
 
-import Alpine from 'alpinejs';
+import Alpine from 'alpinejs'
 
-window.Alpine = Alpine;
+window.Alpine = Alpine
 
-Alpine.start();
+import './../../vendor/power-components/livewire-powergrid/dist/powergrid'
+
+Alpine.start()
+

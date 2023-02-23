@@ -9,10 +9,13 @@
 
         <!-- Fonts -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.css" rel="stylesheet" />
+        <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
+
+
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
 
         @notifyCss
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
         @livewireStyles
     </head>
     <body class="font-sans antialiased">
@@ -52,10 +55,15 @@
 
        {{--  </div> --}}
         @livewireScripts
+        @powerGridScripts
         <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.js"></script>
-
 
         <x:notify-messages />
         @notifyJs
+        <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+
+        <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
+        @yield('scripts')
+
     </body>
 </html>

@@ -24,6 +24,10 @@ use Usernotnull\Toast\Toast;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
+
+
 Route::get('/register', function () {
     return redirect('/login');
 });
@@ -33,15 +37,12 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    /* $tt= view('dashboard')->render();
-    return $tt; */
 
     $collection = collect( module::select('name')->whereStatus('Active')->get()->toarray());
     Cache::put('CacheModule',$collection );
-
-
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
 
 
 
@@ -56,6 +57,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('/setting', SettingcradController::class);
 
     Route::resource('/posts', PostController::class);
+    Route::post('/pi/dropzone', [PostController::class,'dropzone'] );
+    Route::delete('/pi/dropzone', [PostController::class,'dropzonedelete'] );
+
     Route::resource('/configc', confcolumController::class);
 
 });

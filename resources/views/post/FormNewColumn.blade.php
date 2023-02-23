@@ -1,10 +1,7 @@
 <div class="grid grid-cols-3 gap-4 mb-4">
-            <div class="flex items-center justify-center h-14 rounded ">
-            </div>
-            <div class="flex items-center justify-center h-14 rounded ">
-
-            </div>
-            <div class="flex items-center justify-center h-14 rounded ">
+            <div class="flex items-center justify-center h-4 rounded "> </div>
+            <div class="flex items-center justify-center h-4 rounded "> </div>
+            <div class="flex items-center justify-center h-4 rounded ">
                 <p class="text-2xl text-gray-400 dark:text-gray-500">
                     <!-- drawer init and toggle -->
 
@@ -13,7 +10,8 @@
                             <x-secondary-button type="submit">{{ __('Configure Columns') }}</x-secondary-button>
                         </form>
 
-                        <x-secondary-button data-drawer-target="drawer-right-example"
+                        <x-secondary-button
+                            data-drawer-target="drawer-right-example"
                             data-drawer-show="drawer-right-example" data-drawer-placement="right"
                             aria-controls="drawer-right-example">
                             {{ __('New Colummn') }}
