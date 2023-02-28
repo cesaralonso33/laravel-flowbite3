@@ -3,20 +3,22 @@
 namespace App\View\Components;
 
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\ToolsController;
+use App\Traits\ToolsCrad;
 use Illuminate\View\Component;
 use PhpOffice\PhpSpreadsheet\Calculation\Logical\Boolean;
 
 class OpcSelectInputCrad extends Component
 {
 
+    use ToolsCrad;
+
     public string $name,$label,$required,$type;
     public bool $list;
     public array $values;
 
 
-
-
-    /**
+   /**
      * Create a new component instance.
      *
      * @return void
@@ -32,16 +34,6 @@ class OpcSelectInputCrad extends Component
 
     }
 
-    function get_enum_values( $table, $field )
-    {
-        $type =  DB::select("SHOW COLUMNS FROM {$table} WHERE Field = '{$field}'");
-
-        // return $type[0]->Type;
-        //$type = DB::select("SHOW COLUMNS FROM {$table} WHERE Field = '{$field}'" )->row( 0 )->Type;
-        preg_match("/^enum\(\'(.*)\'\)$/", $type[0]->Type, $matches);
-        $enum = explode("','", $matches[1]);
-        return $enum;
-    }
 
     public function customFunction(string $param): array
     {

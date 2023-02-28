@@ -14,6 +14,8 @@
     "If you did not request a password reset, no further action is required.": "Si no has solicitado un cambio de contraseña, puedes ignorar o eliminar este e-mail.",
     "Please confirm your password before continuing.": "Por favor confirme su contraseña antes de continuar.",
     "Regards": "Saludos",
+    "Required":"Requerido",
+    "Hidden":"Ocultar",
     "Whoops!": "¡Ups!",
     "Hello!": "¡Hola!",
     "Users": "Usuarios",
@@ -65,7 +67,8 @@
     "Success":"Éxito",
     "The operation has been not completed":"La operación no se ha completado.",
     "New Colummn":"Nueva columna",
-    "Configure Columns":"Configurar Columnas"
+    "Configure Columns":"Configurar Columnas",
+    "New Row":"Nueva Fila"
 
 
 }

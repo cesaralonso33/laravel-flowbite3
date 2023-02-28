@@ -1,3 +1,3 @@
-@props(['disabled' => false,'required'=>false,'checked'=>false])
+@props(['disabled' => false,'required'=>false,'checked'=>false,'inputvalue'=>false])
 
-<input {{ $checked ? 'checked' : '' }} {{ $required ? 'required' : '' }} {{ $disabled ? 'disabled' : '' }} {!! $attributes->merge(['class' => 'border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm']) !!}>
+<input {{ $inputvalue ? 'value='.$inputvalue.'' : '' }} {{ $checked ? 'checked' : '' }} {{ $required ? 'required' : '' }} {{ $disabled ? 'disabled' : '' }} {!! $attributes->merge(['class' => 'border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm']) !!}>

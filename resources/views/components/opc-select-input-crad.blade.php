@@ -5,14 +5,22 @@
     @switch($type)
 
             @case("TEXT")
-            <x-input-label class="text-sm" for="{{$name}}" value="{{strtoupper($label)}}" />
-            <x-text-input id="{{$name}}" class="block mt-1 w-full" type="text" name="{{$name}}" :required="$required" value="{{strtoupper($values[$name])}}"  />
+            <x-input-label class="text-sm" for="{{$name}}" value="{{strtoupper($label)}}"   :required="$required"/>
+
+            <x-text-input
+                id="{{$name}}"
+                class="block mt-1 w-full"
+                type="text"
+                name="{{$name}}"
+                :required="$required"
+                :inputvalue="strtoupper($values[$name])"
+                />
 
             @break
 
             @case("INT")
-            <x-input-label class="text-sm" for="{{$name}}" value="{{strtoupper($label)}}" />
-            <x-text-input id="{{$name}}" class="block mt-1 w-full" type="number" name="{{$name}}" :required="$required" value="{{strtoupper($values[$name])}}"  />
+            <x-input-label class="text-sm" for="{{$name}}" value="{{strtoupper($label)}}"   :required="$required" />
+            <x-text-input id="{{$name}}" class="block mt-1 w-full" type="number" name="{{$name}}" :required="$required"  :inputvalue="strtoupper($values[$name])"  />
 
             @break
 
@@ -22,23 +30,23 @@
             @break
 
             @case("DECIMAL")
-            <x-input-label class="text-sm" for="{{$name}}" value="{{strtoupper($label)}}" />
-            <x-text-input id="{{$name}}" class="block mt-1 w-full" type="number"  step="0.01" name="{{$name}}" :required="$required" value="{{strtoupper($values[$name])}}"  />
+            <x-input-label class="text-sm" for="{{$name}}" value="{{strtoupper($label)}}"   :required="$required"/>
+            <x-text-input id="{{$name}}" class="block mt-1 w-full" type="number"  step="0.01" name="{{$name}}" :required="$required" :inputvalue="strtoupper($values[$name])"  />
 
             @break
 
 
 
             @case("DATE")
-            <x-input-label class="text-sm" for="{{$name}}" value="{{strtoupper($label)}}" />
-              <x-text-input id="{{$name}}" class="block mt-1 w-full" type="date"    name="{{$name}}" :required="$required" value="{{strtoupper($values[$name])}}"  />
+            <x-input-label class="text-sm" for="{{$name}}" value="{{strtoupper($label)}}"   :required="$required" />
+              <x-text-input id="{{$name}}" class="block mt-1 w-full" type="date"    name="{{$name}}" :required="$required" :inputvalue="strtoupper($values[$name])"  />
 
             @break
 
 
             @case("LIST")
             @if($list)
-            <x-input-label class="text-sm" for="{{$name}}" value="{{strtoupper($label)}}" />
+            <x-input-label class="text-sm" for="{{$name}}" value="{{strtoupper($label)}}"   :required="$required" />
             <x-selected  id="{{$name}}" name="{{$name}}" :items="$customFunction($name)" :required="$required" :select="$values[$name]"/>
             @endif
             @break
@@ -53,7 +61,7 @@
 
                 {!! (Cache::get($values['id'])) !!}
 
-            <x-input-label class="text-sm" for="{{$name}}" value="{{strtoupper($label)}}" />
+            <x-input-label class="text-sm" for="{{$name}}" value="{{strtoupper($label)}}"   :required="$required"/>
             <x-text-input    multiple  id="{{$name}}"   type="file"   name="files[]"   :required="$required"   />
 
 

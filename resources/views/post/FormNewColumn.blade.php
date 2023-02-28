@@ -1,24 +1,36 @@
-<div class="grid grid-cols-3 gap-4 mb-4">
-            <div class="flex items-center justify-center h-4 rounded "> </div>
-            <div class="flex items-center justify-center h-4 rounded "> </div>
-            <div class="flex items-center justify-center h-4 rounded ">
-                <p class="text-2xl text-gray-400 dark:text-gray-500">
-                    <!-- drawer init and toggle -->
+<div class="flex flex-row-reverse">
 
                     @if (Auth::user()->getRoleNames()[0] === 'Super-Admin' or Auth::user()->getRoleNames()[0] === 'Admin')
+                    <div class="mr-4 "  >
+
                         <form action="{{ route('configc.index') }}" method="GET">
                             <x-secondary-button type="submit">{{ __('Configure Columns') }}</x-secondary-button>
                         </form>
 
-                        <x-secondary-button
-                            data-drawer-target="drawer-right-example"
-                            data-drawer-show="drawer-right-example" data-drawer-placement="right"
-                            aria-controls="drawer-right-example">
-                            {{ __('New Colummn') }}
-                        </x-secondary-button>
-                    @endif
+                    </div>
+                    <div   class="mr-4 ">
 
-                </p>
+                        <x-secondary-button
+                        data-drawer-target="drawer-right-example"
+                        data-drawer-show="drawer-right-example" data-drawer-placement="right"
+                        aria-controls="drawer-right-example">
+                        {{ __('New Colummn') }}
+                    </x-secondary-button>
+                    </div>
+                    @endif
+                    <div   class="mr-4 ">
+
+
+                        <x-secondary-button
+                        data-drawer-target="drawer-right-example"
+                    data-drawer-show="drawer-right-example" data-drawer-placement="right"
+                    aria-controls="drawer-right-example">
+                    {{ __('New Row') }}
+                </x-secondary-button>
+
+                </div>
+
+        </div>
 
                 <!-- drawer component -->
                 <div id="drawer-right-example"
@@ -52,7 +64,7 @@
                             <x-input-label for="name" :value="__('Name')" />
                             <x-text-input id="name" class="block mt-1 w-full" type="text" name="name"
                                 required />
-                            <x-input-error :messages="$errors->get('namecolummn')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('name')" class="mt-2" />
                         </div>
 
                         <div class="mt-4">
@@ -62,11 +74,21 @@
                             <x-input-error :messages="$errors->get('label')" class="mt-2" />
                         </div>
 
-                        <div class="mt-4">
-                            <x-input-label for="required" :value="__('Required')" />
-                            <x-text-input id="required" class="block mt-1 " type="checkbox" name="required" />
-                            <x-input-error :messages="$errors->get('label')" class="mt-2" />
-                        </div>
+
+
+
+                            <div class=" mt-4">
+                                    <x-toggle-crad id="required" :name="'required'"   :labelc="__('Required')"  />
+                                    <x-input-error :messages="$errors->get('required')" class="mt-2" />
+                                </div>
+
+                                <div class=" mt-4">
+                                    <x-toggle-crad id="hiddentable"   :name="'hiddentable'"   :labelc="__('Hidden')"  />
+                                    <x-input-error :messages="$errors->get('hiddentable')" class="mt-2" />
+                              </div>
+
+
+
 
                         <div class="mt-4">
                             <x-input-label for="type" :value="__('Type')" />
@@ -92,4 +114,3 @@
                 </div>
 
             </div>
-        </div>

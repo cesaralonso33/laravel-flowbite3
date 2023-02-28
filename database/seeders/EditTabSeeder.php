@@ -2,12 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Column;
-use App\Models\post;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class PostSeeder extends Seeder
+class EditTabSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,11 +14,6 @@ class PostSeeder extends Seeder
      */
     public function run()
     {
-        for($i=0;$i<600;$i++){
-            $itt=new post();
-            $itt->save();
-        }
-
-
+        //
     }
 }

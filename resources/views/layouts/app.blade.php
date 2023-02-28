@@ -17,6 +17,7 @@
         @notifyCss
         <!-- Scripts -->
         @livewireStyles
+      {{--   @powerGridStyles --}}
     </head>
     <body class="font-sans antialiased">
 

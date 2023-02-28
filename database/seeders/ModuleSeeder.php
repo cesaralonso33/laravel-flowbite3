@@ -18,7 +18,7 @@ class ModuleSeeder extends Seeder
        // \App\Models\module::factory(3)->create();
 
 
-       $listmodules=array("Profile","Users","Permissions","Roles","Clients","Providers","Products","Posts");
+       $listmodules=array("Profile","Users","Permissions","Roles","Posts");
 
 
        foreach($listmodules as $item){
