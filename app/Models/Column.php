@@ -11,7 +11,10 @@ class Column extends Model
     use HasFactory;
 
 
-
+    public function Tabs()
+    {
+        return $this->hasOne(Edit_tab::class,'id','edit_tab_id');
+    }
 
 
 }

@@ -30,13 +30,17 @@ final class PostPowerGrid extends PowerGridComponent
     */
     public function setUp(): array
     {
-        $this->showCheckBox();
-
+        //$this->showCheckBox();
+        $this->persist(['columns', 'filters']);
         return [
+
             Exportable::make('export')
                 ->striped()
                 ->type(Exportable::TYPE_XLS, Exportable::TYPE_CSV),
+
             Header::make()->showSearchInput(),
+            //->showToggleColumns(),
+
             Footer::make()
                 ->showPerPage()
                 ->showRecordCount(),
@@ -268,7 +272,8 @@ asass
         }
 
         if ($hidden ) {
-            return Column::make($label, $name)->sortable()->searchable()->makeInputText(dataField: $name)->hidden();        }
+            return Column::make($label, $name)->sortable()->searchable()->makeInputText(dataField: $name)->hidden();
+         }
         else{
             if($type==="LIST"){
 
@@ -314,12 +319,14 @@ asass
     public function actions(): array
     {
         return [
+
+
             //Button::make('edit', 'Edit')
                // ->class('underline text-blue-500 hover:no-underline')
                 //->route('posts.edit', ['post' => 'id']),
 
                 Button::add('Edit')
-                ->bladeComponent('my-custom-button', ['dishId' => 'id']),
+                ->bladeComponent('my-custom-button', ['dishId' => 'id','module'=>'posts']),
 
             /*    Button::make('destroy', 'Delete')
                ->class('bg-red-500 cursor-pointer text-white px-3 py-2 m-1 rounded text-sm')

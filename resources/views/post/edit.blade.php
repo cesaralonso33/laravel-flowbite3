@@ -38,13 +38,16 @@
                                                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-8 w-full">
                                                                @forelse ($key['Items'] as $item)
 
-                                                                                                    <x-OpcSelectInputCrad
-                                                                                                            :name="$item['name']"
-                                                                                                            :label="$item['label']"
-                                                                                                            :required="$item['required']"
-                                                                                                            :list="$item['list']"
-                                                                                                            :values="$post"
-                                                                                                            :type="$item['type']" />
+                                                               <x-OpcSelectInputCrad
+                                                               :name="$item['name']"
+                                                               :label="$item['label']"
+                                                               :required="$item['required']"
+                                                               :list="$item['list']"
+                                                               :values="$post"
+                                                               :type="$item['type']"
+                                                               :listable="$item['list_table']"
+                                                               />
+
 
                                                                                 @empty
                                                                                 @endforelse

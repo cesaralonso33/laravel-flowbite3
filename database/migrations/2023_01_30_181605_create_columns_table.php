@@ -24,6 +24,7 @@ return new class extends Migration
             $table->boolean('hiddentable')->default(false);
             $table->unsignedBigInteger('edit_tab_id');
             $table->string('type');
+            $table->string('list_table')->default(false);
             $table->unsignedBigInteger("user_id");
             $table->timestamps();
 

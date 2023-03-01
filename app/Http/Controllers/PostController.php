@@ -130,7 +130,8 @@ class PostController extends Controller
         $rowq->list                       = ($request->type == "LIST" ? true : false);
         $rowq->type                    = $request->type;
         $rowq->hiddentable        = $request->hiddentable;
-        $rowq->edit_tab_id          = $request->edit_tab_id;
+        $rowq->edit_tab_id          = 1;
+        $rowq->list_table        = $request->listable;
         $rowq->user_id                = Auth::id();
         $rowq->save();
 

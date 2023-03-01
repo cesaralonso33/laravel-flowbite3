@@ -64,7 +64,7 @@ class  PizaronColumnSeeder extends Seeder
             'label' => $nombre,
             'name' => str::replace(' ', '', $nombre),
             'required' => false,
-            'list' =>  true,
+            'list' =>  false,
             'hiddentable' =>  false,
             'edit_tab_id' => Edit_tab::all()->random()->id,
             'type' =>  fake()->randomElement(['TEXT']),

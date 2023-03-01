@@ -45,11 +45,25 @@
 
 
             @case("LIST")
-            @if($list)
-            <x-input-label class="text-sm" for="{{$name}}" value="{{strtoupper($label)}}"   :required="$required" />
-            <x-selected  id="{{$name}}" name="{{$name}}" :items="$customFunction($name)" :required="$required" :select="$values[$name]"/>
-            @endif
+
+                    @if($list)
+                    <x-input-label class="text-sm" for="{{$name}}" value="{{strtoupper($label)}}"   :required="$required" />
+                    <x-selected  id="{{$name}}" name="{{$name}}" :items="$customFunction($name)" :required="$required" :select="$values[$name]"/>
+                    @endif
+
             @break
+
+            @case("LIST_TABLE")
+              {{--       @if ($listtable)
+                    {{ list_table($listtable)}}
+                    <x-input-label class="text-sm" for="{{$name}}" value="{{strtoupper($label)}}"   :required="$required" />
+                    <x-selected  id="{{$name}}" name="{{$name}}" :items="$customFunction($name)" :required="$required" :select="$values[$name]"/>
+
+                    @endif --}}
+            @break
+
+
+
 
             @case("JSON")
 

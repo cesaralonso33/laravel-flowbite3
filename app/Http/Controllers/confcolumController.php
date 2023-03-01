@@ -57,9 +57,11 @@ class confcolumController extends Controller
      * @param  \App\Models\ConmfigColummn  $conmfigColummn
      * @return \Illuminate\Http\Response
      */
-    public function edit(ConmfigColummn $conmfigColummn)
+    public function edit(Request $request , $id)
     {
-        //
+
+        $data = Column::find($id);
+       return view('Setting.confColumns.edit');
     }
 
     /**
@@ -69,7 +71,7 @@ class confcolumController extends Controller
      * @param  \App\Models\ConmfigColummn  $conmfigColummn
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ConmfigColummn $conmfigColummn)
+    public function update(Request $request)
     {
         //
     }

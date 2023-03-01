@@ -35,7 +35,7 @@ class RoleSeeder extends Seeder
 
 
 
-      $kust=module::all();
+            $kust=module::all();
             foreach($kust  as $item){
                 // create permissions
                 Permission::create(['name' => 'view '.$item->name]);

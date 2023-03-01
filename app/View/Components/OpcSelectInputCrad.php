@@ -13,7 +13,7 @@ class OpcSelectInputCrad extends Component
 
     use ToolsCrad;
 
-    public string $name,$label,$required,$type;
+    public string $name,$label,$required,$type,$listable;
     public bool $list;
     public array $values;
 
@@ -23,7 +23,7 @@ class OpcSelectInputCrad extends Component
      *
      * @return void
      */
-    public function __construct(string $name,string $label,string $required,bool $list,string $values,string $type)
+    public function __construct(string $name,string $label,string $required,bool $list,string $values,string $type,string $listable)
     {
         $this->name = $name;
         $this->label = $label;
@@ -31,7 +31,7 @@ class OpcSelectInputCrad extends Component
         $this->list = $list;
         $this->values = json_decode($values,True);
         $this->type = $type;
-
+        $this->listable = $listable;
     }
 
 
@@ -39,6 +39,10 @@ class OpcSelectInputCrad extends Component
     {
         return $this->get_enum_values('posts', $param );
 
+    }
+
+    public function list_table($valortable){
+        return $valortable;
     }
 
     /**

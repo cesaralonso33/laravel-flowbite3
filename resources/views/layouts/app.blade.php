@@ -18,8 +18,14 @@
         <!-- Scripts -->
         @livewireStyles
       {{--   @powerGridStyles --}}
+      <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+        }
+    </style>
+
     </head>
-    <body class="font-sans antialiased">
+    <body class="dark:bg-gray-800" >
 
 
 
@@ -34,7 +40,7 @@
     @include('layouts.navegationadmin')
  </aside>
 
- <div class="p-4 sm:ml-64">
+ <div class="p-4 sm:ml-64 dark:bg-gray-800">
 
         {{ $slot }}
 

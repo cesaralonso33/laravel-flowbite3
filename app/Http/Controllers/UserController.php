@@ -22,7 +22,7 @@ class UserController extends Controller
         // Evita que los usuarios sin permiso accedan por la url
         // permisos y el array son los metodos que quieren que se ejecuten con los permisos
         $this->middleware(['permission:view Users'], ['only' => 'index']);
-        $this->middleware(['permission:create User'], ['only' => ['create', 'store']]);
+        $this->middleware(['permission:create Users'], ['only' => ['create', 'store']]);
         $this->middleware(['permission:edit Users'], ['only' => ['edit', 'update']]);
         $this->middleware(['permission:delete User'], ['only' => 'delete']);
     }
@@ -75,12 +75,17 @@ class UserController extends Controller
             'password' => 'required|confirmed|min:8',
             'role'=>'required'
         ]);
-
-
+/*
+dd($request->role);
         $jso=json_decode($request->role);
+        dd($jso->{'name'}); */
         $request->password=Hash::make($request->password);
         $newuser=user::create($request->except(['_token','password_confirmation','role']));
-        $newuser->assignRole($jso->{'name'});
+
+      //  $user = new User(['email' => $request->email]);
+        $newuser->role=$request->role;
+        $newuser->assignRole($request->role);
+        $newuser->save();
 
         return redirect('/users');
 
@@ -106,8 +111,10 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+
         $rowuser=user::find($id);
         $usec=$rowuser->getRoleNames(); // Returns a collection
+
         $selectrole=$usec[0];
 
 //        $roles= Role::select('id','name')->get();
@@ -160,9 +167,13 @@ class UserController extends Controller
             $newuser->name=$request->name;
             $newuser->email=$request->email;
             $newuser->active=($request->active=="on" ? 1:0);
-            if(!empty($request->password) ) $newuser->password=Hash::make($request->password);
+
+            if(!empty($request->password) ) {
+                $newuser->password=Hash::make($request->password);
+            }
             // $newuser->assignRole($request->role);
             $newuser->syncRoles([$request->role]);
+            $newuser->role=$request->role;
             $newuser->save();
 
             notify()->success(__('The operation has been successfully completed') .' ⚡️',__('Success'));

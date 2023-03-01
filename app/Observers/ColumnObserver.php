@@ -3,9 +3,11 @@
 namespace App\Observers;
 
 use App\Models\Column;
-use App\Models\Permission;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+
 
 class ColumnObserver
 {
@@ -19,7 +21,7 @@ class ColumnObserver
     {
 
 
-        $ctype         = ($column->type == "IMAGE" ? 'TEXT' : $column->type);
+        $ctype     = ($column->type == "IMAGE" ? 'TEXT' : $column->type);
 
         if ($ctype === "LIST" and !empty($column->list)) {
             DB::SELECT("ALTER TABLE posts ADD {$column->name} enum({$column->list}) {$column->opcval}");
@@ -27,11 +29,11 @@ class ColumnObserver
             DB::SELECT("ALTER TABLE posts ADD {$column->name} {$ctype} NULL;");
         }
 
-/*
-        Permission::create(['name' => 'view ' . $column->name]);
-        Permission::create(['name' => 'edit ' . $column->name]);
-        Permission::create(['name' => 'delete ' . $column->name]);
- */
+        Permission::create(['name' => 'Post.create.' . $column->name]);
+        Permission::create(['name' => 'Post.view.' . $column->name]);
+        Permission::create(['name' => 'Post.edit.' . $column->name]);
+        Permission::create(['name' => 'Post.delete.' . $column->name]);
+
     }
 
     /**
