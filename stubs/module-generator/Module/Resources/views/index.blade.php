@@ -1,36 +1,15 @@
 <x-app-layout>
 
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('{Module}') }}
-        </h2>
-    </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
 
-                    <p><a href="{{ route('app.{module}.create') }}">Add {Model}</a> </p>
+    <div class="p-2  border-gray-200   rounded-lg dark:border-gray-700">
+@include('{module}::FormNewColumn')
+        <div class=" items-center justify-center  mb-4 rounded bg-gray-50 dark:bg-gray-800">
 
-                    <table>
-                        <tr>
-                            <td>Name</td>
-                            <td>Action</td>
-                        </tr>
-                        @foreach(${module} as ${model})
-                            <tr>
-                                <td>{{ ${model}->name }}</td>
-                                <td>
-                                    <a href="{{ route('app.{module}.edit', ${model}->id) }}">Edit</a>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </table>
-
-                </div>
-            </div>
+            <livewire:{module}::grid />
         </div>
+
+    </div>
     </div>
 
 </x-app-layout>

@@ -4,16 +4,16 @@ namespace Modules\{Module}\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Modules\{Module}\Database\Factories\{Model}Factory;
+use Modules\{Module}\Database\Factories\{Model}ColumnFactory;
 
-class {Model} extends Model
+class {Model}Column extends Model
 {
     use HasFactory;
 
-
+    protected $fillable = ['name'];
 
     protected static function newFactory()
     {
-        return {Model}Factory::new();
+        return {Model}ColumnFactory::new();
     }
 }

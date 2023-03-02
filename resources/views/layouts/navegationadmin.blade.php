@@ -13,7 +13,7 @@ if(auth()->user()->hasAnyPermission('view Users') and $collection->contains('nam
 }
 
 if(auth()->user()->hasAnyPermission('view Clients') and $collection->contains('name', 'Clients') ){
-    array_push($linkmenu, array("title"=>"Clients", "route"=>"users.index",'icon'=>8));
+    array_push($linkmenu, array("title"=>"Clients", "route"=>"app.clients.index",'icon'=>8));
 }
 
 if(auth()->user()->hasAnyPermission('view Providers') and $collection->contains('name', 'Providers') ){
@@ -27,7 +27,8 @@ if(auth()->user()->hasAnyPermission('view Products') and $collection->contains('
 if(auth()->user()->hasAnyPermission('view Posts')  and $collection->contains('name', 'Posts')  ){
     array_push($linkmenu, array("title"=>"Posts", "route"=>"posts.index",'icon'=>10));
 }
-    $defaultlist=  array();
+
+$defaultlist=  array();
 
 
 if(Auth::user()->getRoleNames()[0]==="Super-Admin"   ){

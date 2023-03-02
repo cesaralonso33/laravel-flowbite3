@@ -68,6 +68,7 @@ class  PizaronColumnSeeder extends Seeder
             'hiddentable' =>  false,
             'edit_tab_id' => Edit_tab::all()->random()->id,
             'type' =>  fake()->randomElement(['TEXT']),
+            'list_table'=>0,
             'user_id' => 1
         ];
         return $row;

@@ -39,8 +39,10 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
 
     $collection = collect( module::select('name')->whereStatus('Active')->get()->toarray());
+
     Cache::put('CacheModule',$collection );
     return view('dashboard');
+
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
@@ -67,3 +69,5 @@ Route::middleware('auth')->group(function () {
 
 
 require __DIR__.'/auth.php';
+
+

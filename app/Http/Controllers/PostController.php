@@ -45,7 +45,7 @@ class PostController extends Controller
     {
         //  dd(Post::query()->orderby('id','desc')->with('tempfile')->first());
 
-        $arrayt = ['TEXT', 'INT', 'BOOLEAN', 'DECIMAL', 'DATE', 'LIST', 'JSON', 'IMAGE', 'LONGTEXT'];
+        $arrayt = ['TEXT', 'INT', 'BOOLEAN', 'DECIMAL', 'DATE', 'LIST', 'JSON', 'IMAGE', 'LONGTEXT','RELATION'];
         //   dump($this->get_enum_values("users","isAdmin"));
         $view = view('post.index', compact('arrayt'));
         return $view->render(); // Hello, World!
