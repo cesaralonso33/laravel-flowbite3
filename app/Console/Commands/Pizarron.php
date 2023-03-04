@@ -4,9 +4,11 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
+use App\Traits\ToolsCrad;
 
 class Pizarron extends Command
 {
+    use ToolsCrad;
     /**
      * The name and signature of the console command.
      *
@@ -28,15 +30,22 @@ class Pizarron extends Command
      */
     public function handle()
     {
+
+
+        $this->CreateModule(['Clients','Solicituds']);
+        $this->line('Creating modules');
         Artisan::call('migrate:fresh');
-        //$this->call(ColumnSeeder::class);
+        Artisan::call('module:migrate-refresh Clients --seed');
+        $this->line('Migracion');
         Artisan::call('db:seed', [
             '--class' => 'PizarronSeeder'
         ]);
-
          Artisan::call('db:seed', [
             '--class' => 'PizaronColumnSeeder'
         ]);
+        Artisan::call('optimize:clear');
+
+
       //  $this->call('App\MyNameSpace\Page\Database\Migrations\SomeSeederClass');
      /*    $result = Process Process::run('php artisan migrate:fresh --seed --seeder=PizarronSeeder');
 

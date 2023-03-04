@@ -6,9 +6,9 @@ use Modules\{Module}\Models\{Model}Column;
 
 use Illuminate\Support\Str;
 
-class {Model}ColumnFactory extends Factory
+class {Model}TemploraryFileFactory extends Factory
 {
-    protected $model = {Model}Column::class;
+    protected $model = {Model}TemploraryFileFactory::class;
 
     public function definition(): array
     {

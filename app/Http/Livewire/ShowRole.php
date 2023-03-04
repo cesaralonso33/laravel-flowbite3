@@ -24,9 +24,9 @@ class ShowRole extends DataTableComponent
     {
 
         if(Auth::user()->getRoleNames()[0]==="Super-Admin"   ){
-            return Role::query();
+            return Role::query()->orderby('id','asc');
         }else{
-            return Role::query()->where('name','<>','Super-Admin');
+            return Role::query()->where('name','<>','Super-Admin')->orderby('id','asc');
         }
 
     }

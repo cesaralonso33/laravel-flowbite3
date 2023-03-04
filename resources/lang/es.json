@@ -2,6 +2,7 @@
     "E-Mail Address": "Correo electrónico",
     "USER DOES NOT HAVE THE RIGHT PERMISSIONS.":"EL USUARIO NO TIENE LOS PERMISOS CORRECTOS.",
     "Password": "Contraseña",
+    "New": "Nuevo",
     "Remember Me": "Recuérdame",
     "Login": "Acceder",
     "Forgot Your Password?": "¿Olvidaste tu contraseña?",
@@ -36,6 +37,7 @@
     "Active":"Activo",
     "Deactive":"Inactivo",
     "Status":"Estatus",
+    "Create":"Crear",
     "Update":"Actualizar",
     "Forgot your password?":"¿Olvidaste tu contraseña?",
     "Update Password":"Actualiza contraseña",
@@ -69,7 +71,8 @@
     "The operation has been not completed":"La operación no se ha completado.",
     "New Colummn":"Nueva columna",
     "Configure Columns":"Configurar Columnas",
-    "New Row":"Nueva Fila"
+    "New Row":"Nueva Fila",
+    "Block":"Bloquear"
 
 
 }

@@ -12,6 +12,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role as permissrole;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Cache;
+
 
 class RoleController extends Controller
 {
@@ -84,6 +87,7 @@ class RoleController extends Controller
         $rolePermissions = Permission::select('id', 'name')
             ->join("role_has_permissions", "role_has_permissions.permission_id", "=", "permissions.id")
             ->where("role_has_permissions.role_id", $role->id)
+            ->orderby('id','asc')
             ->get();
 
         $collectiond = collect($rolePermissions);
@@ -92,16 +96,18 @@ class RoleController extends Controller
         $multiplied = $collection->map(function ($item, $key) use ($collectiond) {
 
             $valor[0] = $collectiond->firstWhere('name', 'view ' . $item->name);
-            $valor[1] = $collectiond->firstWhere('name', 'edit ' . $item->name);
-            $valor[2] = $collectiond->firstWhere('name', 'delete ' . $item->name);
+            $valor[1] = $collectiond->firstWhere('name', 'create ' . $item->name);
+            $valor[2] = $collectiond->firstWhere('name', 'edit ' . $item->name);
+            $valor[3] = $collectiond->firstWhere('name', 'delete ' . $item->name);
 
             return   [
                 "id" => $item->id,
                 "name" => $item->name,
                 "data" => [
                     "view" => ($valor[0] == null ? false : true),
-                    "edit" => ($valor[1] == null ? false : true),
-                    "delete" => ($valor[2] == null ? false : true),
+                    "create" => ($valor[1] == null ? false : true),
+                    "edit" => ($valor[2] == null ? false : true),
+                    "delete" => ($valor[3] == null ? false : true),
                 ]
             ];
         });
@@ -126,13 +132,16 @@ class RoleController extends Controller
             $rol = permissrole::findByName($role->name);
             $iteml = [];;
             foreach ($request->except(['_token', '_method']) as $item) {
-
                 $iteml[] = $item;
             }
             $rol->syncPermissions($iteml);
 
 
             notify()->success(__('The operation has been successfully completed') . ' ⚡️', __('Success'));
+            Artisan::call('optimize:clear');
+            $collection = collect( module::select('name')->whereStatus('Active')->get()->toarray());
+            Cache::put('CacheModule',$collection );
+
             return back();
         } catch (\Exception $e) {
             // DB::rollback();

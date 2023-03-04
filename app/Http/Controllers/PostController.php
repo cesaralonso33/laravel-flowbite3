@@ -29,10 +29,10 @@ class PostController extends Controller
 
         // Evita que los usuarios sin permiso accedan por la url
         // permisos y el array son los metodos que quieren que se ejecuten con los permisos
-        $this->middleware(['permission:view Posts'], ['only' => 'index']);
-        $this->middleware(['permission:create Posts'], ['only' => ['create', 'store']]);
-        $this->middleware(['permission:edit Posts'], ['only' => ['edit', 'update']]);
-        $this->middleware(['permission:delete Posts'], ['only' => 'delete']);
+        $this->middleware(['permission:view {Module}'], ['only' => 'index']);
+        $this->middleware(['permission:create {Module}'], ['only' => ['create', 'store2']]);
+        $this->middleware(['permission:edit {Module}'], ['only' => ['edit', 'update']]);
+        $this->middleware(['permission:delete {Module}'], ['only' => 'delete']);
     }
 
 
@@ -88,6 +88,19 @@ class PostController extends Controller
         }
         return '';
     }
+
+
+
+    public function store2(Request $request)
+    {
+
+        $validated = $request->validate([
+            'name' => 'required|unique:columns|max:255',
+        ]);
+
+
+    }
+
 
     public function store(Request $request)
     {

@@ -10,7 +10,15 @@ class {Model}Column extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name'];
+    protected $table = '{model}_columns';
+    protected $guarded = [];
+
+
+    public function Tabs()
+    {
+        return $this->hasOne({Model}EditTab::class,'id','edit_tab_id');
+    }
+
 
     protected static function newFactory()
     {

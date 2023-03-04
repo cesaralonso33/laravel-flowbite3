@@ -11,7 +11,7 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
 
-class ColumnObserver
+class {Model}ColumnObserver
 {
     /**
      * Handle the Column "created" event.

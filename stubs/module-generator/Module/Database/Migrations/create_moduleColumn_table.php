@@ -8,13 +8,14 @@ class Create{Module}ColumnTable extends Migration
 {
     public function up()
     {
-        Schema::create('{model_}_columns', function (Blueprint $table) {
+        Schema::create('{model}_columns', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('label');
             $table->boolean('required')->default(false);
             $table->boolean('list')->default(false);
             $table->boolean('hiddentable')->default(false);
+            $table->boolean('block')->default(false);
             $table->unsignedBigInteger('edit_tab_id');
             $table->string('type');
             $table->string('list_table')->default(false);
@@ -28,6 +29,6 @@ class Create{Module}ColumnTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('{module_}');
+        Schema::dropIfExists('{model}_columns');
     }
 }

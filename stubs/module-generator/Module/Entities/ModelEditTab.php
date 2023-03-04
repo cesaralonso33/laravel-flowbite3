@@ -4,14 +4,15 @@ namespace Modules\{Module}\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Modules\{Module}\Database\Factories\{Model}ColumnFactory;
+use Modules\{Module}\Database\Factories\{Model}EditTabFactory;
 
 class {Model}EditTab extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    protected $table = '{module}_edit_tab';
 
+    protected $guarded = [];
 
     public function scopeActive($query){
         return $query->where('state','Active');
@@ -20,6 +21,6 @@ class {Model}EditTab extends Model
     }
     protected static function newFactory()
     {
-        return {Model}ColumnFactory::new();
+        return {Model}EditTabFactory::new();
     }
 }

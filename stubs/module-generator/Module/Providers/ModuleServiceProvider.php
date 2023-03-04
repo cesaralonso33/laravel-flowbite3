@@ -3,6 +3,10 @@
 namespace Modules\{Module}\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Modules\{Module}\Models\{Model}Column;
+
+use Modules\{Module}\Observers\{Model}ColumnObserver;
+
 
 class {Module}ServiceProvider extends ServiceProvider
 {
@@ -15,12 +19,19 @@ class {Module}ServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
+
+
+       //    {Model}Column::observe( {Model}ColumnObserver::class);
+       {Model}Column::observe( {Model}ColumnObserver::class);
+
+
     }
 
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
     }
+
 
     protected function registerConfig()
     {

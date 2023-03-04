@@ -16,8 +16,9 @@ class post extends Model
 
     protected $guarded = [];
 
-
+/*
     public function tempfile():HasMany{
         return $this->hasMany(TemploraryFile::class,'post_id','id');
-    }
+    } */
+
 }

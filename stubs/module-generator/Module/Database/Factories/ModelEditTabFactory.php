@@ -2,19 +2,18 @@
 namespace Modules\{Module}\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Modules\{Module}\Models\{Model}Column;
+use Modules\{Module}\Models\{Model}EditTab;
 
 use Illuminate\Support\Str;
 
-class {Model}ColumnFactory extends Factory
+class {Model}EditTabFactory extends Factory
 {
-    protected $model = {Model}Column::class;
+    protected $model = {Model}EditTab::class;
 
     public function definition(): array
     {
         return [
-            'name' => Str::uuid(),
-            'label' => fake()->name(),
+
         ];
     }
 }

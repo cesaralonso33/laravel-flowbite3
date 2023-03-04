@@ -186,6 +186,19 @@ final class Grid extends PowerGridComponent
     public function addColumns(): PowerGridEloquent
     {
         return PowerGrid::eloquent()
+        ->addColumn('price_after_taxes', function ({Model} $model) {
+            return '<a target="_black" class="underline text-blue-500 hover:no-underline" href="{module}/edit/' . e($model->id) . '"> Editar  </a>';
+          })
+          ->addColumn('created_at_formatted', function ({Model} $dish) {
+            return $this->ImagInCell($dish);
+            if (Cache::has($dish->id)) {
+                return Cache::get($dish->id);
+            } else {
+                return $this->ImagInCell($dish);
+            }
+            // return '<img class="h-10" src="data:image/jpeg;base64,'.$dd.'" alt="---">';
+        });
+    }
             /*  ->addColumn('timeline', function ({Model} $model) {
             return '<button
                             data-drawer-target="drawer-right-'. e($model->id) .'"
@@ -221,18 +234,7 @@ final class Grid extends PowerGridComponent
 asass
 
                         </div> '; }) */
-            ->addColumn('created_at_formatted', function ({Model} $dish) {
 
-                return $this->ImagInCell($dish);
-
-                if (Cache::has($dish->id)) {
-                    return Cache::get($dish->id);
-                } else {
-                    return $this->ImagInCell($dish);
-                }
-                // return '<img class="h-10" src="data:image/jpeg;base64,'.$dd.'" alt="---">';
-            });
-    }
 
     /*
     |--------------------------------------------------------------------------
@@ -256,14 +258,13 @@ asass
         $COLER = columncrad::where('user_id', Auth::id())->get();
 
         $arrayt = [];
-
-        //$arrayt[] = Column::make("id at", "id")->sortable();
+        $arrayt[] =  Column::add()->field('price_after_taxes', 'created_at')->sortable();
+        $arrayt[] = Column::add()->field('timeline', 'created_at');
 
         foreach ($COLER as $key => $value) {
             $arrayt[] = $this->columncrad($value->label, $value->name, $value->type, $value->hiddentable);
         }
 
-        $arrayt[] = Column::add()->field('timeline', 'created_at');
         return $arrayt;
     }
 
@@ -321,19 +322,9 @@ asass
     public function actions(): array
     {
         return [
-
-
-            //Button::make('edit', 'Edit')
-               // ->class('underline text-blue-500 hover:no-underline')
-                //->route('{module}.edit', ['post' => 'id']),
-
-                Button::add('Edit')
-                ->bladeComponent('my-custom-button', ['dishId' => 'id','module'=>'{module}']),
-
-            /*    Button::make('destroy', 'Delete')
-               ->class('bg-red-500 cursor-pointer text-white px-3 py-2 m-1 rounded text-sm')
-               ->route('{module}.destroy', ['post' => 'id'])
-               ->method('delete') */
+            Button::make('edit', __('Edit'))
+            ->class('underline text-blue-500 hover:no-underline')
+            ->route('app.{module}.edit', ['id' => 'id'])
         ];
     }
 

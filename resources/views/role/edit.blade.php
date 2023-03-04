@@ -32,6 +32,9 @@
                     {{__('View')}}
                 </th>
                 <th scope="col" class="px-6 py-3">
+                    {{__('Create')}}
+                </th>
+                <th scope="col" class="px-6 py-3">
                     {{__('Edit')}}
                 </th>
                 <th scope="col" class="px-6 py-3">
@@ -48,6 +51,9 @@
                  </th>
                 <td class="px-6 py-4">
                      <x-text-input id="v_{{$value['id']}}" value="view {{ $value['name']}}" class="block mt-1 " type="checkbox" name="v_{{$value['id']}}" :checked="$value['data']['view']" />
+                </td>
+                <td class="px-6 py-4">
+                    <x-text-input id="c_{{$value['id']}}" value="create {{ $value['name']}}" class="block mt-1 " type="checkbox" name="c_{{$value['id']}}"  :checked="$value['data']['create']"/>
                 </td>
                 <td class="px-6 py-4">
                     <x-text-input id="e_{{$value['id']}}" value="edit {{ $value['name']}}" class="block mt-1 " type="checkbox" name="e_{{$value['id']}}"  :checked="$value['data']['edit']"/>
