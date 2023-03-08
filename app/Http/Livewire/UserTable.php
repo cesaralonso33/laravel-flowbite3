@@ -23,14 +23,18 @@ use Illuminate\Support\Str;
 
 class UserTable extends DataTableComponent
 {
-    protected $model = User::class;
 
+    public function builder(): Builder
+    {
+
+        return User::where('id','>',1);
+
+    }
 
 
     public function bulkActions(): array
     {
         return [
-
             'NewUser' => __('New User'),
             'export' => 'Exportar',
             'activateSelected' => 'Activar',

@@ -75,17 +75,15 @@ class UserController extends Controller
             'password' => 'required|confirmed|min:8',
             'role'=>'required'
         ]);
-/*
-dd($request->role);
-        $jso=json_decode($request->role);
-        dd($jso->{'name'}); */
-        $request->password=Hash::make($request->password);
-        $newuser=user::create($request->except(['_token','password_confirmation','role']));
 
-      //  $user = new User(['email' => $request->email]);
-        $newuser->role=$request->role;
-        $newuser->assignRole($request->role);
-        $newuser->save();
+        $user= new User();
+        $user->name=$request->name;
+        $user->email=$request->email;
+        $user->password=Hash::make($request->password);
+        $user->role=$request->role;
+        $user->assignRole($request->role);
+        $user->save();
+        notify()->success(__('The operation has been successfully completed') . ' ⚡️', __('Success'));
 
         return redirect('/users');
 

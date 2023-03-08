@@ -8,20 +8,20 @@ class Create{Module}TemploraryFileTable extends Migration
 {
     public function up()
     {
-        Schema::create('{module}_templorary_file', function (Blueprint $table) {
+        Schema::create('{module_}_templorary_file', function (Blueprint $table) {
             $table->id();
             $table->string('folder');
             $table->string('filename');
             $table->string('nameinput');
 
-            $table->unsignedBigInteger('{model}_id')->nullable();
-            $table->foreign('{model}_id')->references('id')->on('{module}')->onDelete('set null');
+            $table->unsignedBigInteger('{module_}_id')->nullable();
+            $table->foreign('{module_}_id')->references('id')->on('{module_}')->onDelete('set null');
             $table->timestamps();
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('{module}_templorary_file');
+        Schema::dropIfExists('{module_}_templorary_file');
     }
 }

@@ -8,7 +8,7 @@ class Create{Module}ColumnTable extends Migration
 {
     public function up()
     {
-        Schema::create('{model}_columns', function (Blueprint $table) {
+        Schema::create('{module_}_columns', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('label');
@@ -19,11 +19,12 @@ class Create{Module}ColumnTable extends Migration
             $table->unsignedBigInteger('edit_tab_id');
             $table->string('type');
             $table->string('list_table')->default(false);
-            $table->unsignedBigInteger("user_id");
+            $table->integer('user_id');
+          //  $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('edit_tab_id')->references('id')->on('edit_tabs');
+
+            $table->foreign('edit_tab_id')->references('id')->on('{module_}_edit_tab');
         });
     }
 

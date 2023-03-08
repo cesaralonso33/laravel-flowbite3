@@ -26,27 +26,23 @@ class PizarronSeeder extends Seeder
             'isAdmin'=>'Admin'
             ])->assignRole('Super-Admin');
 
-$roles=['Logística',
-'Monitoreo',
-'Jefe Logística',
-'Mantenimiento',
-'Aux. Facturación',
-'Ventas',
-'Jefe Ventas',
-'Compras',
-'Cobranza',
-'Jefe Admin.',
-'Princing',
-'Jefe Princing'];
+            $roles=['Logística',
+            'Monitoreo',
+            'Jefe Logística',
+            'Mantenimiento',
+            'Aux. Facturación',
+            'Ventas',
+            'Jefe Ventas',
+            'Compras',
+            'Cobranza',
+            'Jefe Admin.',
+            'Princing',
+            'Jefe Princing'];
 
 foreach ($roles as $key => $value) {
     Role::create(['name' => $value]);
     # code...
 }
-
-//clients
-
-
 
     }
 }

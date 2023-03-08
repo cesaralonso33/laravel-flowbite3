@@ -26,7 +26,7 @@ class {Module}Controller extends Controller
         // Evita que los usuarios sin permiso accedan por la url
         // permisos y el array son los metodos que quieren que se ejecuten con los permisos
         $this->middleware(['permission:view {Module}'], ['only' => 'index']);
-        $this->middleware(['permission:create {Module}'], ['only' => ['create', 'store2']]);
+        $this->middleware(['permission:create {Module}'], ['only' => ['create', 'store','store2']]);
         $this->middleware(['permission:edit {Module}'], ['only' => ['edit', 'update']]);
         $this->middleware(['permission:delete {Module}'], ['only' => 'delete']);
     }
@@ -43,7 +43,7 @@ class {Module}Controller extends Controller
         if(!Cache::has('{Model}Create'.Auth::id())){
             $Itemtabs=$this->get_tab_and_tab();
             $arrayt = ['TEXT', 'INT', 'BOOLEAN', 'DECIMAL', 'DATE', 'LIST', 'JSON', 'IMAGE', 'LONGTEXT','RELATION'];
-            $hola=view('clients::opc',compact('Itemtabs','arrayt'));
+            $hola=view('{module}::opc',compact('Itemtabs','arrayt'));
             Cache::put('{Model}Create'.Auth::id(),$hola->render());
         }
 
@@ -59,15 +59,13 @@ class {Module}Controller extends Controller
     {
         try {
 
-        {Model}::create($request->except(['_token', '_method']));
+            {Model}::create( $request->except(['_token', '_method'] ));
 
-        notify()->success(__('The operation has been successfully completed') . ' ⚡️', __('Success'));
-        return redirect()->route('app.{module}.index');
+            notify()->success(__('The operation has been successfully completed') . ' ⚡️', __('Success'));
         } catch (\Exception $e) {
-
             notify()->error(__('The operation has been not completed') . $e->getMessage(), __('Error'));
-
         }
+        return redirect()->route('app.{module}.index');
     }
 
     public function store(Request $request)

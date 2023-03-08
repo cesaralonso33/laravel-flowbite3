@@ -255,11 +255,11 @@ asass
 
 
         // $COLER= DB::SELECT("SHOW COLUMNS FROM `{module}` WHERE FIELD not in ('created_at','updated_at');");
-        $COLER = columncrad::where('user_id', Auth::id())->get();
+        $COLER = columncrad::all();//columncrad::where('user_id', Auth::id())->get();
 
         $arrayt = [];
-        $arrayt[] =  Column::add()->field('price_after_taxes', 'created_at')->sortable();
-        $arrayt[] = Column::add()->field('timeline', 'created_at');
+        $arrayt[] =  Column::add()->field('price_after_taxes', 'created_at')->sortable()->visibleInExport(false);
+        $arrayt[] = Column::add()->field('timeline', 'created_at')->visibleInExport(false);
 
         foreach ($COLER as $key => $value) {
             $arrayt[] = $this->columncrad($value->label, $value->name, $value->type, $value->hiddentable);

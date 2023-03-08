@@ -12,11 +12,13 @@ use Modules\{Module}\Models\{Model}TemploraryFile;
 class {Model} extends Model
 {
     use HasFactory;
+
+    protected $table = '{module_}';
     protected $guarded = [];
 
 
    public function tempfile():HasMany{
-        return $this->hasMany({Model}TemploraryFile::class,'{model}_id','id');
+        return $this->hasMany({Model}TemploraryFile::class,'{module_}_id','id');
     }
 
     protected static function newFactory()

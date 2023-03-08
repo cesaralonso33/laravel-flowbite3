@@ -6,11 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\{Module}\Database\Factories\{Model}ColumnFactory;
 
+
+
 class {Model}Column extends Model
 {
     use HasFactory;
 
-    protected $table = '{model}_columns';
+    protected $table = '{module_}_columns';
     protected $guarded = [];
 
 

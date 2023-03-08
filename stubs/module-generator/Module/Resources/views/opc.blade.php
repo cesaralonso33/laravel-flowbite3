@@ -61,7 +61,7 @@
                         <li class="mr-2" role="presentation">
                             <button class="inline-block p-4 border-b-2 rounded-t-lg" id="tt{{ $key['id'] }}-tab"
                                 data-tabs-target="#tt{{ $key['id'] }}" type="button" role="tab"
-                                aria-controls="tt{{ $key['id'] }}" aria-selected="false">{{ $key['label'] }}</button>
+                                aria-controls="tt{{ $key['id'] }}" aria-selected="false">{{ __($key['label']) }}</button>
                         </li>
                     @empty
                     @endforelse

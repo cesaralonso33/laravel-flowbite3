@@ -8,12 +8,12 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingcradController;
 use App\Http\Controllers\UserController;
 use App\Models\module;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
-
 use Usernotnull\Toast\Concerns\WireToast;
-use Usernotnull\Toast\Toast;
-
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,7 +27,6 @@ use Usernotnull\Toast\Toast;
 
 
 
-
 Route::get('/register', function () {
     return redirect('/login');
 });
@@ -38,9 +37,25 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
 
-    $collection = collect( module::select('name')->whereStatus('Active')->get()->toarray());
+    $items=module::select('name','rute','icon','campolibre')
+    ->whereStatus('Active')
+    ->get()
+    ->map(function($item, $key) {
+        if(Auth::user()->hasPermissionTo("view {$item->name}")){
+            return [
+                'name' => __($item->name),
+                'rute'=>$item->rute,
+                'icon'=>$item->icon,
+                'opc'=>$item->campolibre
+            ];
+        }
+    })->filter();
 
-    Cache::put('CacheModule',$collection );
+    $menu= view('setting.menu',compact('items'));
+   /*  dd($menu); */
+    Cache::put('CacheModule',$menu->render() );
+
+
     return view('dashboard');
 
 })->middleware(['auth', 'verified'])->name('dashboard');

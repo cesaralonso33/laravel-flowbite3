@@ -32,6 +32,7 @@
         "spatie/flysystem-dropbox": "^2.0",
         "spatie/laravel-backup": "^8.1",
         "spatie/laravel-permission": "^5.9",
+        "symfony/process": "^6.2",
         "usernotnull/tall-toasts": "^1.5"
     },
     "require-dev": {

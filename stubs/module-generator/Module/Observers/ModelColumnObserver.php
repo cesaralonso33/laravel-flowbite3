@@ -26,15 +26,15 @@ class {Model}ColumnObserver
         $ctype     = ($column->type == "IMAGE" ? 'TEXT' : $column->type);
 
         if ($ctype === "LIST" and !empty($column->list)) {
-            DB::SELECT("ALTER TABLE {module} ADD {$column->name} enum({$column->list}) {$column->opcval}");
+            DB::SELECT("ALTER TABLE {module_} ADD {$column->name} enum({$column->list}) {$column->opcval}");
         } else {
-            DB::SELECT("ALTER TABLE {module} ADD {$column->name} {$ctype} NULL;");
+            DB::SELECT("ALTER TABLE {module_} ADD {$column->name} {$ctype} NULL;");
         }
 
-        Permission::create(['name' => '{Model}.create.' . $column->name]);
-        Permission::create(['name' => '{Model}.view.' . $column->name]);
-        Permission::create(['name' => '{Model}.edit.' . $column->name]);
-        Permission::create(['name' => '{Model}.delete.' . $column->name]);
+        Permission::create(['name' => '{Module}.create.' . $column->name]);
+        Permission::create(['name' => '{Module}.view.' . $column->name]);
+        Permission::create(['name' => '{Module}.edit.' . $column->name]);
+        Permission::create(['name' => '{Module}.delete.' . $column->name]);
 
     }
 

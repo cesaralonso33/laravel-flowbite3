@@ -10,7 +10,7 @@ class {Model}EditTab extends Model
 {
     use HasFactory;
 
-    protected $table = '{module}_edit_tab';
+    protected $table = '{module_}_edit_tab';
 
     protected $guarded = [];
 

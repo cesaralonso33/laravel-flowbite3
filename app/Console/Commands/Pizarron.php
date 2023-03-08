@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\module;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use App\Traits\ToolsCrad;
@@ -31,25 +32,40 @@ class Pizarron extends Command
     public function handle()
     {
 
+        $exitCode = Artisan::call('migrate:refresh', [
+            '--path' => 'database/migrations',
+        ]);
 
-        $this->CreateModule(['Clients','Solicituds']);
+
+        $this->line('Migracion1');
+
+        $this->CreateModule( ['Clients','Solicituds','Destinations','ClientsRates','Origins','TarifasAliados']);
+
         $this->line('Creating modules');
-        Artisan::call('migrate:fresh');
-        Artisan::call('module:migrate-refresh Clients --seed');
-        $this->line('Migracion');
+
         Artisan::call('db:seed', [
             '--class' => 'PizarronSeeder'
         ]);
-         Artisan::call('db:seed', [
+        $this->line('seed1');
+
+        $salida= Artisan::call('db:seed', [
             '--class' => 'PizaronColumnSeeder'
         ]);
-        Artisan::call('optimize:clear');
+        $this->line($salida);
+        $this->line('seed2');
 
+
+        Artisan::call('optimize:clear');
+        $this->line('optimize');
 
       //  $this->call('App\MyNameSpace\Page\Database\Migrations\SomeSeederClass');
      /*    $result = Process Process::run('php artisan migrate:fresh --seed --seeder=PizarronSeeder');
 
         return $result->output(); */
+
+        module::where('id','>',4)->update([
+            'campolibre'=>1
+        ]);
 
         return Command::SUCCESS;
     }

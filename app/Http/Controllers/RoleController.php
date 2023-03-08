@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role as permissrole;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 
 
@@ -135,12 +136,26 @@ class RoleController extends Controller
                 $iteml[] = $item;
             }
             $rol->syncPermissions($iteml);
-
-
             notify()->success(__('The operation has been successfully completed') . ' ⚡️', __('Success'));
             Artisan::call('optimize:clear');
-            $collection = collect( module::select('name')->whereStatus('Active')->get()->toarray());
-            Cache::put('CacheModule',$collection );
+
+            $items=module::select('name','rute','icon','campolibre')
+            ->whereStatus('Active')
+            ->get()
+            ->map(function($item, $key) {
+                if(Auth::user()->hasPermissionTo("view {$item->name}")){
+                    return [
+                        'name' => __($item->name),
+                        'rute'=>$item->rute,
+                        'icon'=>$item->icon,
+                        'opc'=>$item->campolibre
+                    ];
+                }
+            })->filter();
+
+            $menu= view('setting.menu',compact('items'));
+           /*  dd($menu); */
+            Cache::put('CacheModule',$menu->render() );
 
             return back();
         } catch (\Exception $e) {
